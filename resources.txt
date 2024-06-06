@@ -115,3 +115,5 @@ const emojisWithIcons = [
   react android 
 
   react bable
+
+  react appjs 

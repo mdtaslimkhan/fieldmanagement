@@ -117,3 +117,5 @@ const emojisWithIcons = [
   react bable
 
   react appjs 
+
+  app json

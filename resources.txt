@@ -106,3 +106,6 @@ const emojisWithIcons = [
 
 
   new hellogit 
+
+
+  this is practice git commit

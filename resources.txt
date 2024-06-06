@@ -111,3 +111,5 @@ const emojisWithIcons = [
   this is practice git commit
 
   react native
+
+  react android 

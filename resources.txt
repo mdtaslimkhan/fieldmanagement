@@ -102,22 +102,4 @@ const emojisWithIcons = [
 
   <CustomSelect selecteds={(val) => props.values.guest = val} />
 
-  hello
-
-
-  new hellogit 
-
-
-  this is practice git commit
-
-  react native
-
-  react android 
-
-  react bable
-
-  react appjs 
-
-  app json
-
-  package json
+  

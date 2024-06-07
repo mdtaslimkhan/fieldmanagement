@@ -101,8 +101,5 @@ const emojisWithIcons = [
   />
 
   <CustomSelect selecteds={(val) => props.values.guest = val} />
-<<<<<<< HEAD
 
-  sdf
-=======
->>>>>>> refs/remotes/origin/main
+

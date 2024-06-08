@@ -8,6 +8,8 @@ import { workSheetStyle } from './worksheet/workSheetStyle';
 import { ScrollView } from 'react-native-gesture-handler';
 import CustomSelect from '../components/customSelect';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { addGuestToList } from '../redux/action';
 
 const reviewSchema = yup.object({
   slnumber: yup.string().required().min(1).max(30),
@@ -19,10 +21,9 @@ const reviewSchema = yup.object({
 });
 
 
-export default function GuestList() {
-  
-
-  const [isShow, setIsShow] = useState(false);
+export default function GuestListCreate() {
+  const dispatch = useDispatch();
+  const [gList, setGList] = useState([]);
 
   const switchSignInReg = () => {
       setIsShow(true);
@@ -64,6 +65,9 @@ return (
                         actions.resetForm();
                         // textHandler(val);
                         console.log(val);
+                       // val.id = Math.ceil(Math.random().toString())
+                        setGList((p) => [val,...p])
+                        dispatch(addGuestToList(gList));
                 }}>
                     {(props) =>(
                         <View>

@@ -88,7 +88,7 @@ const Modalviewobject = () => {
             <AntDesign style={{textAlign: 'right', padding: 16}} name="close" size={26} color="#000" onPress={() => {setModal(false)}} />
             <Text style={{ textAlign: 'center', marginBottom: 10, fontWeight: 'bold', fontSize: 15 }}>New Post Create Now</Text>
             <NavigatePageItem page={'Work Sheet'} handleNavigate={'WorkSheet'} />
-            <NavigatePageItem page={'Guest List'} handleNavigate={'GuestList'} />
+            <NavigatePageItem page={'Guest List'} handleNavigate={'GuestListCreate'} />
             <NavigatePageItem page={'Seminar'} handleNavigate={'SeminarForm'} />
             <NavigatePageItem page={'Target & Achive'} handleNavigate={'TargetAndAchive'} />
         </View>

@@ -14,7 +14,8 @@ export const globalStyle = StyleSheet.create({
   
     },
     list: {
-      flex: 4
+      flex: 1,
+      margin: 8
     },
     item: {
         color: '#000',
@@ -34,7 +35,7 @@ export const globalStyle = StyleSheet.create({
     text:{
         color: 'green',
         fontFamily: 'Roboto',
-        fontSize: 30,
+        fontSize: 15,
     },
     statusbar:{
         height: 80,

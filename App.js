@@ -4,7 +4,8 @@ import Dashboard from './screens/dashboard';
 import Products from './screens/products';
 import WorkSheet from './screens/worksheet/worksheet';
 import TargetAndAchive from './screens/targetandachive';
-import GuestList from './screens/guestlist';
+import GuestListCreate from './screens/guestlistCreate';
+import GuestList from './screens/guesList';;
 import Notice from './screens/noticeList';
 import { NavigationContainer, useNavigation, DrawerActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -55,6 +56,7 @@ const StackNav = () => {
     }} />
     <Stack.Screen name="WorkSheet" component={WorkSheet} />
     <Stack.Screen name="TargetAndAchive" component={TargetAndAchive} />
+    <Stack.Screen name="GuestListCreate" component={GuestListCreate} />
     <Stack.Screen name="GuestList" component={GuestList} />
     <Stack.Screen name="SeminarForm" component={SeminarForm} />
     <Stack.Screen name="Profile" component={Profile} />

@@ -7,12 +7,18 @@ import { globalStyle } from '../styles/globalStyle';
 
 export default function TotoItem({ pHandle, item  }){
     return (
-        <TouchableOpacity onPress={() => pHandle(item.id)}>
+        
             <View style={globalStyle.item}>
-                <Text style={globalStyle.text} >{item.name}</Text>
-                <AntDesign name="delete" size={24} color="red" />
+                <Text style={globalStyle.text} >{item.slnumber}</Text>
+                <Text style={globalStyle.text} >{item.Name}</Text>
+                <Text style={globalStyle.text} >{item.Phone}</Text>
+                <Text style={globalStyle.text} >{item.Relation}</Text>
+                <Text style={globalStyle.text} >{item.Category}</Text>
+                <TouchableOpacity onPress={() => pHandle(item.id)}>
+                <AntDesign name="edit" size={24} color="green" />
+                </TouchableOpacity>
             </View>
-        </TouchableOpacity>
+        
     );
 }
 

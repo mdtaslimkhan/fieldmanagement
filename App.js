@@ -17,7 +17,9 @@ import DrawerContentCustom from './components/drawerContent';
 import Login from './screens/login/login';
 import SeminarForm from './screens/seminar';
 import Profile from './screens/profile';
+import { AppRegistry } from 'react-native';
 
+AppRegistry.registerComponent('main', () => App);
 
 export default function App() {
   return (

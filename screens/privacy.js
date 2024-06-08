@@ -4,12 +4,11 @@ import Header from '../components/header';
 import { globalStyle } from '../styles/globalStyle';
 
 
-export default function About() {
+export default function Privacy() {
     return (
-      <View>
-        <Text style={globalStyle.text}>About page </Text>
-        <Button title='Go to Products' onPress={() => navigation.navigate("Products")} />
-      </View>
+      <View style={{ justifyContent: 'center' , alignItems: 'center', flex: 1}}>
+      <Text style={globalStyle.text}>Privacy page </Text>
+    </View>
     );
 }
 

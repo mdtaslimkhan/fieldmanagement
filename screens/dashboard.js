@@ -8,12 +8,12 @@ import { AntDesign } from '@expo/vector-icons';
 
 export default function Dashboard({ navigation }) {
 const val = [
-{ label: 'Work list', id: 1, to: 'About'},
-{ label: 'Guest list', id: 2, to: 'guestlist'},
-{ label: 'Seminar', id: 3, to: 'seminar'},
-{ label: 'Notice', id: 4, to: 'notice'},
-{ label: 'Target & Achive', id: 5, to: 'target'},
-{ label: 'Help Support', id: 6, to: 'support'},
+{ label: 'Work list', id: 1, to: 'WorkSheetList'},
+{ label: 'Guest list', id: 2, to: 'GuestList'},
+{ label: 'Seminar', id: 3, to: 'SeminarList'},
+{ label: 'Notice', id: 4, to: 'Notice'},
+{ label: 'Target & Achive', id: 5, to: 'TargetAndAchiveList'},
+{ label: 'Help Support', id: 6, to: 'HelpAndSupport'},
 
 ];
 const text = useSelector((state) => state.reducer);

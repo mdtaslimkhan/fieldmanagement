@@ -10,7 +10,7 @@ export const globalStyle = StyleSheet.create({
       width: '100%',
       height: '80%',
       flex: 1,
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
   
     },
     list: {

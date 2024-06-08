@@ -9,7 +9,7 @@ import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { tableStyle } from '../styles/tableStyle';
 import {StyleSheet, ScrollView } from 'react-native';
 
-export default function GuestList({ navigation }) {
+export default function SeminarList({ navigation }) {
 const [guestList, setGuestList] = useState([])
 const gList = useSelector((state) => state.reducer);
 
@@ -22,8 +22,8 @@ useEffect(() => {
 
 
 const tabelHeader = {
-  tableHead: ['Sl', 'Name', 'Address', 'Mobile No', 'Relation', 'Category','Action'],
-  widthArr: [80, 120, 160, 120, 80, 80, 80]
+  tableHead: ['Sl', 'Date','Host', 'Upazila', 'Village', 'Time', 'Presenter Name','Action'],
+  widthArr: [80, 120,120, 160, 120, 80, 120, 80]
 }
 
 
@@ -39,7 +39,7 @@ const RowList = () => {
   const tableData = [];
     for (let i = 0; i < 10; i += 1) {
       const rowData = [];
-      for (let j = 0; j < 7; j += 1) {
+      for (let j = 0; j < 8; j += 1) {
         rowData.push(`${i}${j}`);
       }
       tableData.push(rowData);
@@ -49,7 +49,7 @@ const RowList = () => {
         <Row
           key={index}
           data={rowData.map((cellData, cellIndex) => (
-            <Cell key={cellIndex} data={cellIndex === 6 ? element(cellData, index) : cellData} textStyle={tableStyle.bodytext}/>
+            <Cell key={cellIndex} data={cellIndex === 7 ? element(cellData, index) : cellData} textStyle={tableStyle.bodytext}/>
           ))}
           widthArr={tabelHeader.widthArr}
           style={[tableStyle.row, index%2 && {backgroundColor: '#F7F6E7'}]}

@@ -15,14 +15,14 @@ const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
 const nav = [
     {icon: 'windowso', label: 'Dashboard', navigateTo: 'Dashboard'},
-    {icon: 'Safety', label: 'Work Sheet', navigateTo: 'WorkSheet'},
+    {icon: 'Safety', label: 'Work Sheet', navigateTo: 'WorkSheetList'},
     {icon: 'Safety', label: 'Guest List', navigateTo: 'GuestList'},
-    {icon: 'Safety', label: 'Target List', navigateTo: 'TargetAndAchive'},
-    {icon: 'Safety', label: 'Seminar', navigateTo: 'SeminarForm'},
+    {icon: 'Safety', label: 'Target List', navigateTo: 'TargetAndAchiveList'},
+    {icon: 'Safety', label: 'Seminar', navigateTo: 'SeminarList'},
     {icon: 'Safety', label: 'Notice', navigateTo: 'Notice'},
-    {icon: 'Safety', label: 'Privacy', navigateTo: 'About'},
-    {icon: 'Safety', label: 'Help', navigateTo: 'About'},
-    {icon: 'Safety', label: 'Review', navigateTo: 'About'},
+    {icon: 'Safety', label: 'Privacy', navigateTo: 'Privacy'},
+    {icon: 'Safety', label: 'Help', navigateTo: 'HelpAndSupport'},
+    {icon: 'Safety', label: 'Review', navigateTo: 'Review'},
     {icon: 'Safety', label: 'Login', navigateTo: 'Login'},
     {icon: 'Safety', label: 'Profile', navigateTo: 'Profile'},
 ]

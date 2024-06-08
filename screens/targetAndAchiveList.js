@@ -9,7 +9,7 @@ import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { tableStyle } from '../styles/tableStyle';
 import {StyleSheet, ScrollView } from 'react-native';
 
-export default function GuestList({ navigation }) {
+export default function TargetAndAchiveList({ navigation }) {
 const [guestList, setGuestList] = useState([])
 const gList = useSelector((state) => state.reducer);
 
@@ -22,8 +22,8 @@ useEffect(() => {
 
 
 const tabelHeader = {
-  tableHead: ['Sl', 'Name', 'Address', 'Mobile No', 'Relation', 'Category','Action'],
-  widthArr: [80, 120, 160, 120, 80, 80, 80]
+  tableHead: ['Sl', 'Project Prensenter', 'Seminar 1st', 'Seminar 2nd', 'Seminar 3rd', 'Seminar 4th', 'Seminar 5th', 'Personal invite', 'Member to Member', 'Personal invite with name','Action'],
+  widthArr: [80, 160, 120, 120, 120, 120, 120, 180, 180 ,180,60]
 }
 
 
@@ -39,7 +39,7 @@ const RowList = () => {
   const tableData = [];
     for (let i = 0; i < 10; i += 1) {
       const rowData = [];
-      for (let j = 0; j < 7; j += 1) {
+      for (let j = 0; j < 11; j += 1) {
         rowData.push(`${i}${j}`);
       }
       tableData.push(rowData);
@@ -49,7 +49,7 @@ const RowList = () => {
         <Row
           key={index}
           data={rowData.map((cellData, cellIndex) => (
-            <Cell key={cellIndex} data={cellIndex === 6 ? element(cellData, index) : cellData} textStyle={tableStyle.bodytext}/>
+            <Cell key={cellIndex} data={cellIndex === 10 ? element(cellData, index) : cellData} textStyle={tableStyle.bodytext}/>
           ))}
           widthArr={tabelHeader.widthArr}
           style={[tableStyle.row, index%2 && {backgroundColor: '#F7F6E7'}]}
@@ -75,6 +75,15 @@ return (
 <View style={globalStyle.container}>
   <View style={globalStyle.content}>
   <View style={{ padding: 8 }}>
+    <TouchableOpacity onPress={() => console.log("hello")}>
+    <View style={tableStyle.buttonContainer}>
+      <Text style={tableStyle.tableTopButton}>May 2024</Text>
+    </View>
+    </TouchableOpacity>
+    <View style={tableStyle.buttonContainerSecond}>
+      <Text style={tableStyle.tableTopButton}>Target Member 20</Text>
+      <Text style={tableStyle.tableTopButton}>Due Member 15</Text>
+    </View>
   <ScrollView horizontal={true}>
           <View>
             <Table borderStyle={tableStyle.tableBorder}>

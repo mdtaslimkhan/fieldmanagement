@@ -60,7 +60,7 @@ const DashTime = () => {
       <Text style={globalStyle.dashTimeLabel} >Minutes</Text>
     </View>
     <View style={globalStyle.dashTimeLabel} >
-      <Text style={globalStyle.dashTime} >34</Text>
+      <Text style={globalStyle.dashTime} >50</Text>
       <Text style={globalStyle.dashTimeLabel} >Seconds</Text>
     </View>
   </View>)
@@ -124,11 +124,11 @@ return (
         <View style={globalStyle.itemThumbHolderTop}>
           <View style={globalStyle.dashItemMember}>
               <Text style={globalStyle.dashItemText} >Total Member </Text>
-              <Text style={globalStyle.dashItemText} >1000 </Text>
+              <Text style={globalStyle.dashItemText} >10 </Text>
           </View>
           <View style={globalStyle.dashItemMember}>
               <Text style={globalStyle.dashItemText}>Total Due Member </Text>
-              <Text style={globalStyle.dashItemText}>30000 </Text>
+              <Text style={globalStyle.dashItemText}>30 </Text>
           </View>
         </View>
         </View>

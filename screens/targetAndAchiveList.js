@@ -66,12 +66,6 @@ const RowList = () => {
 
 
 return (
-  
-<TouchableWithoutFeedback onPress={() => {
-  Keyboard.dismiss()
-  console.log("keyboard hide")
-  console.log(gList.lenght);
-}}>
 <View style={globalStyle.container}>
   <View style={globalStyle.content}>
   <View style={{ padding: 8 }}>
@@ -101,7 +95,6 @@ return (
         </View>
   </View>
 </View>
-</TouchableWithoutFeedback>
 );
 
 }

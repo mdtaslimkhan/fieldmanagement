@@ -35,10 +35,6 @@ setPerson((personNow) => personNow.filter( v => v.id != id));
 
 
 return (
-<TouchableWithoutFeedback onPress={() => {
-  Keyboard.dismiss()
-  console.log("keyboard hide")
-}}>
 <View style={globalStyle.container}>
   <View style={globalStyle.content}>
       <View style={globalStyle.inputview}>
@@ -61,7 +57,6 @@ return (
   </View>
 
 </View>
-</TouchableWithoutFeedback>
 );
 
 }

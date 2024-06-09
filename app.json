@@ -2,7 +2,7 @@
   "expo": {
     "name": "myproject",
     "slug": "myproject",
-    "version": "1.0.0",
+    "version": "1.3.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,20 +17,41 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
+      ],
+      [
+        "expo-updates",
+        {
+          "username": "adsalam"
+        }
       ]
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.myproject"
+      "package": "com.anonymous.myproject",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "runtimeVersion": "1.4.1"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ab044274-c231-422d-b916-1cca14bd6366"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ab044274-c231-422d-b916-1cca14bd6366"
     }
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Review from './screens/review';
 import Dashboard from './screens/dashboard';
 import Products from './screens/products';
@@ -23,10 +23,30 @@ import SeminarForm from './screens/seminar';
 import Profile from './screens/profile';
 import { AppRegistry } from 'react-native';
 import Privacy from './screens/privacy';
+import * as Updates from 'expo-updates';
 
 AppRegistry.registerComponent('main', () => App);
 
 export default function App() {
+  async function onFetchUpdateAsync() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
+      }
+    } catch (error) {
+      // You can also add an alert() to see the error message in case of an error when fetching updates.
+      alert(`Error fetching latest Expo update: ${error}`);
+    }
+  }
+
+  useEffect(() => {
+    onFetchUpdateAsync();
+  },[]);
+
+
   return (
     <Provider store={store} >
       <AppHolder />

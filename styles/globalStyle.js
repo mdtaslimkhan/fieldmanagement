@@ -159,7 +159,12 @@ export const globalStyle = StyleSheet.create({
     noticetitleHolder: {
     },
     noticetextholder: {
-    }
+    },
+    versionText:{
+      color: 'green',
+      fontFamily: 'Roboto',
+      fontSize: 30,
+  },
    
 
     

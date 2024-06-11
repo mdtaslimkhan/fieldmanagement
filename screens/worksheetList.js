@@ -23,7 +23,7 @@ useEffect(() => {
 
 const tabelHeader = {
   tableHead: ['Date', 'Plan', 'Presenter Name', 'Guest Name', 'Address', 'Mobile','Comment','Comment 2nd','Comment 3rd','Action'],
-  widthArr: [80, 120, 160, 120, 80, 80, 80, 120, 120, 60]
+  widthArr: [100, 120, 160, 120, 220, 120, 120, 120, 160, 60]
 }
 
 
@@ -37,11 +37,8 @@ const element = (data, index) => (
 
 const RowList = () => {
   const tableData = [];
-    for (let i = 0; i < 10; i += 1) {
-      const rowData = [];
-      for (let j = 0; j < 10; j += 1) {
-        rowData.push(`${i}${j}`);
-      }
+    for (let i = 0; i < 30; i += 1) {
+      const rowData = ['12/06/2024','Work','Md Jashim ali', 'Md Sakin', 'Chittagong Road ,Siddhirganj, Narayanganj', '01922555246','Initaial work','Visit the office','Followup running',''];
       tableData.push(rowData);
     }
     return(

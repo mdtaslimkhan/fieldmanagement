@@ -8,16 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { tableStyle } from '../styles/tableStyle';
 import {StyleSheet, ScrollView } from 'react-native';
+import { wrokDataFetch } from '../redux/slices/worksheetSlice';
 
 export default function WorkSheetList({ navigation }) {
 const [guestList, setGuestList] = useState([])
-const gList = useSelector((state) => state.reducer);
-
+const gList = useSelector(state => state.WorkSheetReducer.data.data);
+const dispatch = useDispatch();
+console.log("===================================================================================");
+console.log(JSON.stringify(gList));
 useEffect(() => {
-    if(gList != "undefined"){
-        console.log("from guest list adfa: " +gList.Address);
-        setGuestList((prev) => [gList, ...prev]);
-    } 
+  dispatch(wrokDataFetch());
 },[])
 
 
@@ -37,10 +37,15 @@ const element = (data, index) => (
 
 const RowList = () => {
   const tableData = [];
-    for (let i = 0; i < 30; i += 1) {
-      const rowData = ['12/06/2024','Work','Md Jashim ali', 'Md Sakin', 'Chittagong Road ,Siddhirganj, Narayanganj', '01922555246','Initaial work','Visit the office','Followup running',''];
+    // for (let i = 0; i < 30; i += 1) {
+    //   const rowData = ['12/06/2024','Work','Md Jashim ali', 'Md Sakin', 'Chittagong Road ,Siddhirganj, Narayanganj', '01922555246','Initaial work','Visit the office','Followup running',''];
+    //   tableData.push(rowData);
+    // }
+    gList.map((dt) =>{
+      const rowData = [dt.Date, dt.Plan, dt.Presenter_Name,dt.Guest_Name, dt.Address, dt.Mobile,
+        dt.Comment, dt.Comment_2nd, dt.Comment_3rd, ''];
       tableData.push(rowData);
-    }
+    });
     return(
       tableData.map((rowData, index) => (
         <Row

@@ -1,31 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_URL } from "../../components/constants";
 
-export const wrokDataFetch = createAsyncThunk("fetchworkSheet", async() => {
-    const res = await fetch(API_URL + "workSheetList");
+export const guestDataFetch = createAsyncThunk("fetchguestList", async() => {
+    const res = await fetch(API_URL + "guestList");
     const data = await res.json();
+  //  console.log(data);
     return data;
 });
 
-const WorkSheetSlice = createSlice({
-    name: "workSheet",
+const GuestListSlice = createSlice({
+    name: "guestList",
     initialState: {
         data: null,
         isLoader: false,
         isError: false
     },
     extraReducers: builder => {
-        builder.addCase(wrokDataFetch.pending, (state, action) => {
+        builder.addCase(guestDataFetch.pending, (state, action) => {
             state.isLoader = true;
         });
-        builder.addCase(wrokDataFetch.fulfilled, (state, action) => {
+        builder.addCase(guestDataFetch.fulfilled, (state, action) => {
             state.isLoader = false;
             state.data = action.payload;
         });
-        builder.addCase(wrokDataFetch.rejected, (state, action) => {
+        builder.addCase(guestDataFetch.rejected, (state, action) => {
             state.isError = true;
         });
     }
+    
+   
 });
 
-export default WorkSheetSlice.reducer;
+export default GuestListSlice.reducer;
+

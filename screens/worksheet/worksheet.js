@@ -12,11 +12,11 @@ import DatePicker from 'react-native-date-picker';
 import { GetDateCustom } from '../../components/common';
 
 const reviewSchema = yup.object({
-  plan: yup.string().required().notOneOf([yup.ref('Plan')]),
-  presenter: yup.string().required().notOneOf([yup.ref('Presenter')]),
-  guest: yup.string().required().min(4).max(30),
+  Plan: yup.string().required(),
+  Presenter_Name: yup.string().required().notOneOf([yup.ref('Presenter')]),
+  Guest_Name: yup.string().required().min(4).max(30),
   address: yup.string().required().min(4).max(300),
-  phone: yup.string().required().min(4).max(300),
+  Mobile: yup.string().required().min(4).max(300),
 });
 
 
@@ -54,11 +54,11 @@ return (
         <View style={workSheetStyle.content}>
 
                 <Formik 
-                    initialValues={{plan:'', presenter: '', guest: '',address: '', phone: '',
-                    comment: '', comment2nd: '', comment3rd: ''  }}
+                    initialValues={{Date: "", Plan:'', Presenter_Name: '', Guest_Name: '',Address: '', Mobile: '',
+                    Comment: '', Comment_2nd: '', Comment_3rd: ''  }}
                     validationSchema={reviewSchema}
                     onSubmit={(val, actions) => {
-                        actions.resetForm();
+                       // actions.resetForm();
                         // textHandler(val);
                         console.log(val);
                 }}>
@@ -91,57 +91,57 @@ return (
                            <Text style={loginRegisterStyle.text}>Plan </Text>
                             <CustomSelect label={"Plan"} 
                             planList={planList}
-                            onChangeText={props.handleChange('plan')}
-                            selecteds={(val) => props.values.plan = val} />
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.plan && props.errors.plan}</Text>
+                            onChangeText={props.handleChange('Plan')}
+                            selecteds={(val) => props.values.Plan = val} />
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Plan && props.errors.Plan}</Text>
 
                             <Text style={loginRegisterStyle.text}>Presenter Name </Text>
                             <CustomSelect label={"Presenter"} 
                             planList={presenterList} 
-                            selecteds={(val) => props.values.presenter = val} />
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.presenter && props.errors.presenter}</Text>
+                            selecteds={(val) => props.values.Presenter_Name = val} />
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Presenter_Name && props.errors.Presenter_Name}</Text>
 
 
                             <Text style={loginRegisterStyle.text}>Guest Name </Text>
                             <TextInput 
                                 placeholder='Guest' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('guest')}
-                                value={props.values.guest}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.guest && props.errors.guest}</Text>
+                                onChangeText={props.handleChange('Guest_Name')}
+                                value={props.values.Guest_Name}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Guest_Name && props.errors.Guest_Name}</Text>
 
                             <Text style={loginRegisterStyle.text}>Address </Text>
                             <TextInput 
                                 placeholder='Address' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('address')}
-                                value={props.values.address}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.address && props.errors.address}</Text>
+                                onChangeText={props.handleChange('Address')}
+                                value={props.values.Address}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Address && props.errors.Address}</Text>
 
                             <Text style={loginRegisterStyle.text}>Phone number </Text>
                             <TextInput 
                                 placeholder='Phone Number' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('phone')}
-                                value={props.values.phone}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.phone && props.errors.phone}</Text>
+                                onChangeText={props.handleChange('Mobile')}
+                                value={props.values.Mobile}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Mobile && props.errors.Mobile}</Text>
                             
                             <Text style={loginRegisterStyle.text}>Your comment </Text>
                             <TextInput 
                                 placeholder='Comment' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('comment')}
-                                value={props.values.comment}/>
+                                onChangeText={props.handleChange('Comment')}
+                                value={props.values.Comment}/>
                             <Text style={loginRegisterStyle.errorText}></Text>
 
                             <Text style={loginRegisterStyle.text}>Your 2nd comment </Text>
                             <TextInput 
                                 placeholder='Second Comment' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('comment2nd')}
-                                value={props.values.comment2nd}/>
+                                onChangeText={props.handleChange('Comment_2nd')}
+                                value={props.values.Comment_2nd}/>
                             <Text style={loginRegisterStyle.errorText}></Text>
 
                             <Text style={loginRegisterStyle.text}>Your 3rd comment </Text>
                             <TextInput 
                                 placeholder='Third Comment' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('comment3rd')}
-                                value={props.values.comment3rd}/>
+                                onChangeText={props.handleChange('Comment_3rd')}
+                                value={props.values.Comment_3rd}/>
                             <Text style={loginRegisterStyle.errorText}></Text> 
 
                             <TouchableOpacity 

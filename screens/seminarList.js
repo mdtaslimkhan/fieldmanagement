@@ -1,23 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import TodoItem from '../components/todoitem';
-import AddTodoInput from '../components/addtodo';
 import { globalStyle } from '../styles/globalStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { tableStyle } from '../styles/tableStyle';
 import {StyleSheet, ScrollView } from 'react-native';
+import { getSeminarList } from '../redux/slices/seminarListSlice';
+import LoaderSpeen from '../components/loaderSpeen';
 
 export default function SeminarList({ navigation }) {
-const [guestList, setGuestList] = useState([])
-const gList = useSelector((state) => state.reducer);
+const sList = useSelector((state) => state.SeminarListReducer);
+const dispatch = useDispatch();
 
+console.log(JSON.stringify(sList));
 useEffect(() => {
-    if(gList != "undefined"){
-        console.log("from guest list adfa: " +gList.Address);
-        setGuestList((prev) => [gList, ...prev]);
-    } 
+    dispatch(getSeminarList());
 },[])
 
 
@@ -37,13 +35,12 @@ const element = (data, index) => (
 
 const RowList = () => {
   const tableData = [];
-    for (let i = 0; i < 10; i += 1) {
-      const rowData = [];
-      for (let j = 0; j < 8; j += 1) {
-        rowData.push(`${i}${j}`);
-      }
+  if(sList.data){
+    sList.data.map((dt) =>{
+      const rowData = [dt.id, dt.Date, dt.HostName, dt.Upazila,dt.Village,dt.Time, dt.Presenter,''];
       tableData.push(rowData);
-    }
+    });
+  }
     return(
       tableData.map((rowData, index) => (
         <Row
@@ -68,6 +65,7 @@ const RowList = () => {
 return (
 <View style={globalStyle.container}>
   <View style={globalStyle.content}>
+    { !sList.isLoader ?
   <View style={{ padding: 8 }}>
   <ScrollView horizontal={true}>
           <View>
@@ -83,7 +81,8 @@ return (
             </ScrollView>
           </View>
         </ScrollView> 
-        </View>
+        </View> : <LoaderSpeen />
+}
   </View>
 </View>
 );

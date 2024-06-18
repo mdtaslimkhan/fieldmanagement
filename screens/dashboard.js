@@ -60,7 +60,7 @@ const DashTime = () => {
       <Text style={globalStyle.dashTimeLabel} >Minutes</Text>
     </View>
     <View style={globalStyle.dashTimeLabel} >
-      <Text style={globalStyle.dashTime} >20</Text>
+      <Text style={globalStyle.dashTime} >33</Text>
       <Text style={globalStyle.dashTimeLabel} >Seconds</Text>
     </View>
   </View>)

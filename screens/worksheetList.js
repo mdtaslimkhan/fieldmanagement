@@ -1,23 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import TodoItem from '../components/todoitem';
-import AddTodoInput from '../components/addtodo';
-import { globalStyle } from '../styles/globalStyle';
+import {Text,Image, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { globalStyle, images } from '../styles/globalStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { tableStyle } from '../styles/tableStyle';
 import {StyleSheet, ScrollView } from 'react-native';
 import { wrokDataFetch } from '../redux/slices/worksheetSlice';
+import LoaderSpeen from '../components/loaderSpeen';
 
 export default function WorkSheetList({ navigation }) {
-const [guestList, setGuestList] = useState([])
-const gList = useSelector(state => state.WorkSheetReducer.data.data);
+const wData = useSelector(state => state.WorkSheetReducer);
 const dispatch = useDispatch();
-console.log("===================================================================================");
-console.log(JSON.stringify(gList));
+console.log(JSON.stringify(wData.data));
+console.log(wData.isLoader);
+console.log(wData.isLoader);
 useEffect(() => {
   dispatch(wrokDataFetch());
+ // console.warn(gList);
 },[])
 
 
@@ -37,21 +37,19 @@ const element = (data, index) => (
 
 const RowList = () => {
   const tableData = [];
-    // for (let i = 0; i < 30; i += 1) {
-    //   const rowData = ['12/06/2024','Work','Md Jashim ali', 'Md Sakin', 'Chittagong Road ,Siddhirganj, Narayanganj', '01922555246','Initaial work','Visit the office','Followup running',''];
-    //   tableData.push(rowData);
-    // }
-    gList.map((dt) =>{
-      const rowData = [dt.Date, dt.Plan, dt.Presenter_Name,dt.Guest_Name, dt.Address, dt.Mobile,
-        dt.Comment, dt.Comment_2nd, dt.Comment_3rd, ''];
-      tableData.push(rowData);
-    });
+    if(wData.data){
+      wData.data.map((dt) =>{
+        const rowData = [dt.Date, dt.Plan, dt.Presenter_Name,dt.Guest_Name, dt.Address, dt.Mobile,
+          dt.Comment, dt.Comment_2nd, dt.Comment_3rd, ''];
+        tableData.push(rowData);
+      });
+    }
     return(
       tableData.map((rowData, index) => (
         <Row
           key={index}
           data={rowData.map((cellData, cellIndex) => (
-            <Cell key={cellIndex} data={cellIndex === 9 ? element(cellData, index) : cellData} textStyle={tableStyle.bodytext}/>
+            <Cell key={cellIndex} data={cellIndex > 0 && cellIndex === 9 ? element(cellData, index) : cellData} textStyle={tableStyle.bodytext}/>
           ))}
           widthArr={tabelHeader.widthArr}
           style={[tableStyle.row, index%2 && {backgroundColor: '#F7F6E7'}]}
@@ -63,15 +61,12 @@ const RowList = () => {
     )
 }
 
-
-
-
-
 return (
 <View style={globalStyle.container}>
   <View style={globalStyle.content}>
-  <View style={{ padding: 8 }}>
-  <ScrollView horizontal={true}>
+  { !wData.isLoader ? 
+      <View style={{ padding: 8 }}>
+        <ScrollView horizontal={true}>
           <View>
             <Table borderStyle={tableStyle.tableBorder}>
               <Row data={tabelHeader.tableHead} widthArr={tabelHeader.widthArr} style={tableStyle.header} textStyle={tableStyle.text}/>
@@ -85,7 +80,8 @@ return (
             </ScrollView>
           </View>
         </ScrollView> 
-        </View>
+      </View> : <LoaderSpeen />
+    }
   </View>
 </View>
 );

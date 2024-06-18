@@ -1,23 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import TodoItem from '../components/todoitem';
-import AddTodoInput from '../components/addtodo';
 import { globalStyle } from '../styles/globalStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { tableStyle } from '../styles/tableStyle';
 import {StyleSheet, ScrollView } from 'react-native';
+import { guestDataFetch } from '../redux/slices/guestListSlice';
+import LoaderSpeen from '../components/loaderSpeen';
+
 
 export default function GuestList({ navigation }) {
-const [guestList, setGuestList] = useState([])
-const gList = useSelector((state) => state.reducer);
-
+const gList = useSelector(state => state.GuestListReducer);
+const dispatch = useDispatch();
+console.log("====================================");
+console.log(JSON.stringify(gList.data));
 useEffect(() => {
-    if(gList != "undefined"){
-        console.log("from guest list adfa: " +gList.Address);
-        setGuestList((prev) => [gList, ...prev]);
-    } 
+    dispatch(guestDataFetch());
 },[])
 
 
@@ -37,13 +36,12 @@ const element = (data, index) => (
 
 const RowList = () => {
   const tableData = [];
-    for (let i = 0; i < 10; i += 1) {
-      const rowData = [];
-      for (let j = 0; j < 7; j += 1) {
-        rowData.push(`${i}${j}`);
-      }
+  if(gList.data){
+    gList.data.map((dt) =>{
+      const rowData = [dt.id, dt.Name, dt.Address, dt.Mobile,dt.Relation, dt.Category, ''];
       tableData.push(rowData);
-    }
+    });
+  }
     return(
       tableData.map((rowData, index) => (
         <Row
@@ -57,7 +55,6 @@ const RowList = () => {
           textStyle={tableStyle.text}
         />
       ))
-      
     )
 }
 
@@ -65,6 +62,7 @@ const RowList = () => {
 return (
 <View style={globalStyle.container}>
   <View style={globalStyle.content}>
+    { !gList.isLoader ? 
   <View style={{ padding: 8 }}>
   <ScrollView horizontal={true}>
           <View>
@@ -80,7 +78,8 @@ return (
             </ScrollView>
           </View>
         </ScrollView> 
-        </View>
+        </View> : <LoaderSpeen />
+}
   </View>
 </View>
 );

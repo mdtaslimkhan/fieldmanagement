@@ -12,10 +12,9 @@ import { useDispatch } from 'react-redux';
 import { addGuestToList } from '../redux/action';
 
 const reviewSchema = yup.object({
-  slnumber: yup.string().required().min(1).max(30),
   Name: yup.string().required().min(4).max(30),
   Address: yup.string().max(200),
-  Phone: yup.string().max(200),
+  Mobile: yup.string().max(200),
   Relation: yup.string().required(),
   Category: yup.string().required(),
 });
@@ -58,7 +57,7 @@ return (
         <View style={workSheetStyle.content}>
 
                 <Formik 
-                    initialValues={{slnumber: '', Name: '',Address: '', Phone: '',
+                    initialValues={{Name: '',Address: '', Mobile: '',
                     Relation: '', Category: '' }}
                     validationSchema={reviewSchema}
                     onSubmit={(val, actions) => {
@@ -71,15 +70,6 @@ return (
                 }}>
                     {(props) =>(
                         <View>
-                    
-                            <Text style={loginRegisterStyle.text}>SL number </Text>
-                            <TextInput 
-                                placeholder='SL Number' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('slnumber')}
-                                keyboardType='number-pad'
-                                value={props.values.slnumber}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.slnumber && props.errors.slnumber}</Text>
-
                             <Text style={loginRegisterStyle.text}>Guest Name </Text>
                             <TextInput 
                                 placeholder='Enter Guest Name ' style={loginRegisterStyle.input}
@@ -97,10 +87,10 @@ return (
                             <Text style={loginRegisterStyle.text}>Your Phone Number</Text>
                             <TextInput 
                                 placeholder='Seminar 1st ' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('Phone')}
+                                onChangeText={props.handleChange('Mobile')}
                                 keyboardType='number-pad'
-                                value={props.values.Phone}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Phone && props.errors.Phone}</Text>
+                                value={props.values.Mobile}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Mobile && props.errors.Mobile}</Text>
 
                             <Text style={loginRegisterStyle.text}>Relation </Text>
                             <CustomSelect label={"Relation"} 

@@ -50,7 +50,7 @@ return (
         <View style={workSheetStyle.content}>
 
                 <Formik 
-                    initialValues={{slnumber: '', HostName: '',Upazila: '', Village: '',
+                    initialValues={{HostName: '',Upazila: '', Village: '',
                     Presenter: '' }}
                     validationSchema={reviewSchema}
                     onSubmit={(val, actions) => {
@@ -61,14 +61,6 @@ return (
                     {(props) =>(
                         <View>
                     
-                            <Text style={loginRegisterStyle.text}>SL number </Text>
-                            <TextInput 
-                                placeholder='SL Number' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('slnumber')}
-                                keyboardType='number-pad'
-                                value={props.values.slnumber}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.slnumber && props.errors.slnumber}</Text>
-
                             <View>
                               <>
                                 <DatePicker

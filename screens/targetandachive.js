@@ -12,15 +12,13 @@ import { GetDateCustom } from './../components/common';
 import DatePicker from 'react-native-date-picker';
 
 const reviewSchema = yup.object({
-  totalmember: yup.number().required().min(1).max(5),
-  slnumber: yup.string().required().min(1).max(30),
-  presenter: yup.string().required().min(4).max(30),
-  seminar: yup.string().max(200),
-  seminar1: yup.string().max(200),
-  seminar2: yup.string().max(200),
-  seminar3: yup.string().max(200),
-  seminar4: yup.string().max(200),
-  seminar5: yup.string().max(200),
+  Presenter: yup.string().required().min(4).max(30),
+  Seminar: yup.string().max(200),
+  Seminar1: yup.string().max(200),
+  Seminar2: yup.string().max(200),
+  Seminar3: yup.string().max(200),
+  Seminar4: yup.string().max(200),
+  Seminar5: yup.string().max(200),
   Personalinvite: yup.string().required().min(4).max(300),
   MemberToMember: yup.string().required().min(4).max(300),
   InviteWithName: yup.string().required().min(4).max(300),
@@ -59,8 +57,9 @@ return (
         <View style={workSheetStyle.content}>
 
                 <Formik 
-                    initialValues={{totalmember:'', slnumber: '', presenter: '',seminar: '', seminar1: '',
-                    seminar2: '', seminar3: '', seminar4: '', seminar5: '',Personalinvite: '',MemberToMember: '', InviteWithName: '' }}
+                    initialValues={{Totalmember:'', Presenter: '',Seminar: '', Seminar1: '',
+                    Seminar2: '', Seminar3: '', Seminar4: '', Seminar5: '',
+                    Personalinvite: '',MemberToMember: '', InviteWithName: '' }}
                     validationSchema={reviewSchema}
                     onSubmit={(val, actions) => {
                         actions.resetForm();
@@ -96,58 +95,50 @@ return (
                             <Text style={loginRegisterStyle.text}>Total Member </Text>
                             <TextInput 
                                 placeholder='Total Member Number' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('totalmember')}
+                                onChangeText={props.handleChange('Totalmember')}
                                 keyboardType='number-pad'
                                 value={props.values.totalmember}/>
                             <Text style={loginRegisterStyle.errorText}>{props.touched.totalmember && props.errors.totalmember}</Text>
-
-                            <Text style={loginRegisterStyle.text}>SL number </Text>
-                            <TextInput 
-                                placeholder='SL Number' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('slnumber')}
-                                keyboardType='number-pad'
-                                value={props.values.slnumber}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.slnumber && props.errors.slnumber}</Text>
-
+                           
                             <Text style={loginRegisterStyle.text}>Project Presenter </Text>
                             <TextInput 
                                 placeholder='Project Presenter ' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('presenter')}
+                                onChangeText={props.handleChange('Presenter')}
                                 value={props.values.presenter}/>
                             <Text style={loginRegisterStyle.errorText}>{props.touched.presenter && props.errors.presenter}</Text>
                             
                             <Text style={loginRegisterStyle.text}>Seminar </Text>
                             <TextInput 
                                 placeholder='Seminar' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('seminar')}
+                                onChangeText={props.handleChange('Seminar')}
                                 value={props.values.seminar}/>
                             <Text style={loginRegisterStyle.errorText}>{props.touched.seminar && props.errors.seminar}</Text>
 
                             <Text style={loginRegisterStyle.text}>Seminar 1st </Text>
                             <TextInput 
                                 placeholder='Seminar 1st ' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('seminar1')}
+                                onChangeText={props.handleChange('Seminar1')}
                                 value={props.values.seminar1}/>
                             <Text style={loginRegisterStyle.errorText}>{props.touched.seminar1 && props.errors.seminar1}</Text>
 
                             <Text style={loginRegisterStyle.text}>Seminar 2nd </Text>
                             <TextInput 
                                 placeholder='Seminar 2nd ' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('seminar2')}
+                                onChangeText={props.handleChange('Seminar2')}
                                 value={props.values.seminar2}/>
                             <Text style={loginRegisterStyle.errorText}>{props.touched.seminar2 && props.errors.seminar2}</Text>
 
                             <Text style={loginRegisterStyle.text}>Seminar 3rd </Text>
                             <TextInput 
                                 placeholder='Seminar 3rd' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('seminar3')}
+                                onChangeText={props.handleChange('Seminar3')}
                                 value={props.values.seminar3}/>
                             <Text style={loginRegisterStyle.errorText}>{props.touched.seminar3 && props.errors.seminar3}</Text>
 
                             <Text style={loginRegisterStyle.text}>Seminar 4th </Text>
                             <TextInput 
                                 placeholder='Seminar 4th' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('seminar4')}
+                                onChangeText={props.handleChange('Seminar4')}
                                 value={props.values.seminar4}/>
                             <Text style={loginRegisterStyle.errorText}>{props.touched.seminar4 && props.errors.seminar4}</Text>
 
@@ -155,7 +146,7 @@ return (
                             <Text style={loginRegisterStyle.text}>Seminar 5th </Text>
                             <TextInput 
                                 placeholder='Seminar 5th' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('seminar5')}
+                                onChangeText={props.handleChange('Seminar5')}
                                 value={props.values.seminar5}/>
                             <Text style={loginRegisterStyle.errorText}>{props.touched.seminar5 && props.errors.seminar5}</Text>
 

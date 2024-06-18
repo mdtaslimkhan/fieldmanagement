@@ -8,16 +8,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { tableStyle } from '../styles/tableStyle';
 import {StyleSheet, ScrollView } from 'react-native';
+import { targetAndAchiveFetch } from '../redux/slices/targetAndAchiveSlice';
+import LoaderSpeen from '../components/loaderSpeen';
 
 export default function TargetAndAchiveList({ navigation }) {
-const [guestList, setGuestList] = useState([])
-const gList = useSelector((state) => state.reducer);
-
+const aList = useSelector(state => state.TargetAndAchiveReducer);
+const dispatch = useDispatch();
+console.log(JSON.stringify(aList.data));
 useEffect(() => {
-    if(gList != "undefined"){
-        console.log("from guest list adfa: " +gList.Address);
-        setGuestList((prev) => [gList, ...prev]);
-    } 
+  dispatch(targetAndAchiveFetch());
 },[])
 
 
@@ -37,13 +36,13 @@ const element = (data, index) => (
 
 const RowList = () => {
   const tableData = [];
-    for (let i = 0; i < 10; i += 1) {
-      const rowData = [];
-      for (let j = 0; j < 11; j += 1) {
-        rowData.push(`${i}${j}`);
-      }
+  if(aList.data){
+    aList.data.map((dt) =>{
+      const rowData = [dt.id, dt.Totalmember, dt.Presenter,dt.Seminar, dt.Seminar1, dt.Seminar2,
+        dt.Seminar3, dt.Seminar4, dt.Seminar5,dt.Personalinvite,dt.MemberToMember,dt.InviteWithName, ''];
       tableData.push(rowData);
-    }
+    });
+  }
     return(
       tableData.map((rowData, index) => (
         <Row
@@ -68,6 +67,7 @@ const RowList = () => {
 return (
 <View style={globalStyle.container}>
   <View style={globalStyle.content}>
+    { !aList.isLoader ?
   <View style={{ padding: 8 }}>
     <TouchableOpacity onPress={() => console.log("hello")}>
     <View style={tableStyle.buttonContainer}>
@@ -92,7 +92,8 @@ return (
             </ScrollView>
           </View>
         </ScrollView> 
-        </View>
+        </View> : <LoaderSpeen />
+}
   </View>
 </View>
 );

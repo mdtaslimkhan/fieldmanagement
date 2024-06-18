@@ -165,6 +165,25 @@ export const globalStyle = StyleSheet.create({
       fontFamily: 'Roboto',
       fontSize: 30,
   },
+  loaderStyle: {
+    borderRadius: 50,
+    height: 80,
+    width: 80,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    padding: 20
+  },
+  loaderHolder: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: "center",
+    backgroundColor: 'rgba(0,0,0,0.6)'
+  },
+  loaderSubHolder: {
+    backgroundColor: '#ebebeb',
+    padding: 20,
+    borderRadius: 10
+  },
+  
    
 
     
@@ -176,5 +195,6 @@ export const globalStyle = StyleSheet.create({
     icons: {
       '1' : require('../assets/favicon.png'),
       '2' : require('../assets/images/person.jpg'),
+      'loader' : require('../assets/loader.gif'),
     }
   }

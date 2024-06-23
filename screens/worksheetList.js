@@ -7,14 +7,14 @@ import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { tableStyle } from '../styles/tableStyle';
 import {StyleSheet, ScrollView } from 'react-native';
 import { wrokDataFetch } from '../redux/slices/worksheetSlice';
-import LoaderSpeen from '../components/loaderSpeen';
+import { LoaderSpeen } from '../components/loaderSpeen';
 
 export default function WorkSheetList({ navigation }) {
 const wData = useSelector(state => state.WorkSheetReducer);
 const dispatch = useDispatch();
-console.log(JSON.stringify(wData.data));
-console.log(wData.isLoader);
-console.log(wData.isLoader);
+// console.log(JSON.stringify(wData.data));
+// console.log(wData.isLoader);
+// console.log(wData.isLoader);
 useEffect(() => {
   dispatch(wrokDataFetch());
  // console.warn(gList);
@@ -26,14 +26,20 @@ const tabelHeader = {
   widthArr: [100, 120, 160, 120, 220, 120, 120, 120, 160, 60]
 }
 
-
-const element = (data, index) => (
-  <TouchableOpacity onPress={() => console.log(data)}>
+const element = (data, rowData) => (
+  <TouchableOpacity onPress={() => navTo("WorkSheet", rowData)}>
     <View style={tableStyle.btn}>
     <AntDesign style={tableStyle.icon} name="edit"  size={25} color="green" />
     </View>
   </TouchableOpacity>
 );
+
+
+const navTo = (vl, data) => {
+  navigation.navigate(vl, { data: data})
+}
+
+
 
 const RowList = () => {
   const tableData = [];
@@ -49,7 +55,7 @@ const RowList = () => {
         <Row
           key={index}
           data={rowData.map((cellData, cellIndex) => (
-            <Cell key={cellIndex} data={cellIndex > 0 && cellIndex === 9 ? element(cellData, index) : cellData} textStyle={tableStyle.bodytext}/>
+            <Cell key={cellIndex} data={cellIndex > 0 && cellIndex === 9 ? element(cellData, wData.data[index]) : cellData} textStyle={tableStyle.bodytext}/>
           ))}
           widthArr={tabelHeader.widthArr}
           style={[tableStyle.row, index%2 && {backgroundColor: '#F7F6E7'}]}

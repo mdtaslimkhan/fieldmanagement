@@ -1,3 +1,46 @@
+eas update add remove 
+
+$ npx expo uninstall expo-updates
+
+package.json
+"expo-updates": "~0.25.17",
+
+someone told this backdated version is working
+"expo-updates": "0.18.8",
+expo-update@0.18.8
+
+build.gladle at the end of the file
+apply from: "./eas-build.gradle"
+
+app.json under plugin
+      [
+        "expo-updates",
+        {
+          "username": "adsalam"
+        }
+      ]
+
+app.js
+  async function onFetchUpdateAsync() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
+      }
+    } catch (error) {
+      // You can also add an alert() to see the error message in case of an error when fetching updates.
+      alert(`Error fetching latest Expo update: ${error}`);
+    }
+  }
+
+  useEffect(() => {
+    onFetchUpdateAsync();
+  },[]);
+
+
+
 
 Icons for Ant design: 
 https://oblador.github.io/react-native-vector-icons/

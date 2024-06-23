@@ -1,7 +1,5 @@
 import React, { useState, Component } from 'react';
 import {StyleSheet, Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import Header from '../components/header';
-import { globalStyle } from '../styles/globalStyle';
 import { loginRegisterStyle } from './login/loginStyle'; 
 import { Formik, Field, Form } from 'formik';
 import { workSheetStyle } from './worksheet/workSheetStyle';
@@ -9,7 +7,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import CustomSelect from '../components/customSelect';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { addGuestToList } from '../redux/action';
+import { guestDataPost } from '../components/api';
+import { LoaderSpeen, LoaderOnly } from '../components/loaderSpeen';
 
 const reviewSchema = yup.object({
   Name: yup.string().required().min(4).max(30),
@@ -20,9 +19,24 @@ const reviewSchema = yup.object({
 });
 
 
-export default function GuestListCreate() {
+export default function GuestListCreate({ route, navigation }) {
   const dispatch = useDispatch();
-  const [gList, setGList] = useState([]);
+  const [isLoader, setLoader] = useState(false);
+  const [isError, setError] = useState(false);
+  const { data } = route.params; 
+  // console.log(JSON.stringify(data));
+
+  let initialvalue = {};
+  if(data){
+    initialvalue = data;
+    navigation.setOptions({title: "Edit Guest"});
+  }else{
+    navigation.setOptions({title: "Create a Guest"});
+    initialvalue = { Name: '',Address: '', Mobile: '', Relation: '', Category: ''};
+  }
+  const navTo = (vl) => {
+    navigation.navigate(vl)
+  }
 
   const switchSignInReg = () => {
       setIsShow(true);
@@ -50,23 +64,37 @@ export default function GuestListCreate() {
   ];
 
 
+
 return (
+  <View style={workSheetStyle.container}>
+  { !isLoader ?
     <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
 
     <View style={workSheetStyle.container}>
         <View style={workSheetStyle.content}>
-
+                {
+                  isError ? <Text style={{color: "red"}}>Server error</Text> : <></>
+                }
+            
                 <Formik 
-                    initialValues={{Name: '',Address: '', Mobile: '',
-                    Relation: '', Category: '' }}
+                    initialValues={initialvalue}
                     validationSchema={reviewSchema}
-                    onSubmit={(val, actions) => {
-                        actions.resetForm();
-                        // textHandler(val);
-                        console.log(val);
-                       // val.id = Math.ceil(Math.random().toString())
-                        setGList((p) => [val,...p])
-                        dispatch(addGuestToList(gList));
+                    onSubmit={async(val, actions) => {
+                       // actions.resetForm();
+                       let vl = null;
+                       setLoader(true);
+                       if(data){
+                         vl = await guestDataPost("updateguest", val);
+                       }else{
+                           vl = await guestDataPost("postguest", val);
+                       }
+                      if(!vl.error){
+                        setLoader(false);
+                        navTo("GuestList");
+                      }else{
+                        setError(true);
+                      }
+                      console.log(vl.data);
                 }}>
                     {(props) =>(
                         <View>
@@ -114,10 +142,12 @@ return (
   
                         </View>
                     )}
-                </Formik>        
+                </Formik> 
         </View>
   </View>
-  </ScrollView>
+  </ScrollView> : <LoaderSpeen />
+}      
+</View>
 );
 
 

@@ -13,33 +13,43 @@ import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
 import { GetDateCustom } from './../components/common';
 import DatePicker from 'react-native-date-picker';
-
-
-
-
 import placeHoder from '../assets/favicon.png';
+import { useSelector } from 'react-redux';
+
 const formdata = global.FormData;
 
 
 const reviewSchema = yup.object({
-  slnumber: yup.string().required().min(1).max(30),
   Name: yup.string().required().min(4).max(30),
-  Designation: yup.string().required().min(1).max(50),
+  Desig: yup.string().required().min(1).max(50),
   Phone: yup.string().required().min(1).max(50),
   Email: yup.string().required().min(5).max(50),
-  NID: yup.string().required().min(5).max(30),
+  Nid_no: yup.string().required().min(5).max(30),
   Address: yup.string().max(300),
   Gender: yup.string().required(),
-  BloodGroup: yup.string().required(),
+  Blood_group: yup.string().required(),
 });
 
 
+
+
 export default function Profile() {
+  let loggedUser = {};
+  const data = useSelector(state => state.LoginReducer.data);
+  loggedUser = data ? data.user : {};
 
-  const [date, setDate] = useState(new Date("2021-12-31"))
+  const [date, setDate] = useState(new Date())
   const [open, setOpen] = useState(false)
-
   const [image, setImage] = useState(null);
+
+  let initialdata = {};
+  if(loggedUser){
+    initialdata = loggedUser;
+  }else{
+    initialdata = {Name: '',Desig: '', Phone: '',
+      Email: '',Photo: '', Nid_no: '' , Address: '', Birth_date: '',
+      Gender: '', Blood_group: ''};
+  }
 
   
   const pickImage = async () => {
@@ -121,8 +131,7 @@ return (
         <View style={workSheetStyle.content}>
 
                 <Formik 
-                    initialValues={{Name: '', slnumber: '',Designation: '', Phone: '',
-                    Email: '', NID: '' , Address: '', Gender: '', BloodGroup: ''}}
+                    initialValues={loggedUser}
                     validationSchema={reviewSchema}
                     onSubmit={(val, actions) => {
                         actions.resetForm();
@@ -138,8 +147,6 @@ return (
                             <AntDesign style={globalStyle.imagePickerIcon} name="camera" 
                             onPress={pickImage} size={34} color="green" />
                             </View>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Name && props.errors.Name}</Text>
-
                           </View>
 
                             <Text style={loginRegisterStyle.text}>Your Name </Text>
@@ -152,17 +159,16 @@ return (
                             <Text style={loginRegisterStyle.text}>Member ID </Text>
                             <TextInput 
                                 placeholder='Member ID ' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('slnumber')}
-                                keyboardType='number-pad'
-                                value={props.values.slnumber}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.slnumber && props.errors.slnumber}</Text>
-                            
+                                onChangeText={props.handleChange('id')}
+                                value={props.values.id}/>
+                            <Text style={loginRegisterStyle.errorText}></Text>
+
                             <Text style={loginRegisterStyle.text}>Your Designation </Text>
                             <TextInput 
                                 placeholder='Your Designation ' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('Designation')}
-                                value={props.values.Designation}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Designation && props.errors.Designation}</Text>
+                                onChangeText={props.handleChange('Desig')}
+                                value={props.values.Desig}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Desig && props.errors.Desig}</Text>
 
                             <Text style={loginRegisterStyle.text}>Your Phone Number </Text>
                             <TextInput 
@@ -182,17 +188,17 @@ return (
                             <Text style={loginRegisterStyle.text}>NID/Birth Certificate </Text>
                             <TextInput 
                                 placeholder='NID/Birth Certificate' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('NID')}
+                                onChangeText={props.handleChange('Nid_no')}
                                 keyboardType='number-pad'
-                                value={props.values.NID}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.NID && props.errors.NID}</Text>
+                                value={props.values.Nid_no}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Nid_no && props.errors.Nid_no}</Text>
                             
                             <Text style={loginRegisterStyle.text}>Your Address </Text>
                             <TextInput 
                                 placeholder='Enter Your Address' style={loginRegisterStyle.input}
                                 onChangeText={props.handleChange('Address')}
-                                value={props.values.slnumber}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.slnumber && props.errors.slnumber}</Text>
+                                value={props.values.Address}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Address && props.errors.Address}</Text>
                             
                             <View>
                               <>
@@ -204,7 +210,8 @@ return (
                                   onConfirm={(date) => {
                                     setOpen(false)
                                     setDate(date)
-                                    console.log("date string :" + date.getDay())
+                                    console.log("date string :" + date.getDay());
+                                    props.values.Birth_date = date;
                                   }}
                                   onCancel={() => {
                                     setOpen(false)
@@ -227,8 +234,8 @@ return (
                             <Text style={loginRegisterStyle.text}>Blood Group </Text>
                             <CustomSelect label={"Blood Group"} 
                             planList={BloodGroupList} 
-                            selecteds={(val) => props.values.BloodGroup = val} />
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.BloodGroup && props.errors.BloodGroup}</Text>
+                            selecteds={(val) => props.values.Blood_group = val} />
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Blood_group && props.errors.Blood_group}</Text>
                             
                             <TouchableOpacity 
                                 onPress={props.handleSubmit}

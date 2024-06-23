@@ -7,6 +7,16 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 export default function Dashboard({ navigation }) {
+  let loggedUser = {};
+  const data = useSelector(state => state.LoginReducer.data);
+  if(!data){
+    navigation.replace("Login");
+  }else{
+    loggedUser = data ? data.user : {};
+  }
+
+  navigation.setOptions({title: "Dashboard"});
+  
 const val = [
 { label: 'Work list', id: 1, to: 'WorkSheetList'},
 { label: 'Guest list', id: 2, to: 'GuestList'},
@@ -101,7 +111,7 @@ const NavigatePageItem = ({ page, handleNavigate }) => {
   return (
     <TouchableOpacity onPress={() => {
       setModal(false)
-      navigation.navigate(handleNavigate)
+      navigation.navigate(handleNavigate, {data: null})
       }}>
       <View style={{ backgroundColor: '#fff', padding: 16, borderWidth: 1, borderColor: '#ebebeb',width: '100%' }}>
       <Text>{page}</Text>

@@ -10,6 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Animated } from "react-native";
 import { gradiantEnd, gradiantStart, navgradiantEnd, navgradiantStart } from '../styles/styleConstants';
 import { navStyle } from '../styles/navStyle';
+import { useSelector } from 'react-redux';
 
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
@@ -23,9 +24,9 @@ const nav = [
     {icon: 'Safety', label: 'Privacy', navigateTo: 'Privacy'},
     {icon: 'Safety', label: 'Help', navigateTo: 'HelpAndSupport'},
     {icon: 'Safety', label: 'Review', navigateTo: 'Review'},
-    {icon: 'Safety', label: 'Login', navigateTo: 'Login'},
     {icon: 'Safety', label: 'Profile', navigateTo: 'Profile'},
-]
+];
+
 
 
 const DrawerLayout = ({icon, label, navigateTo}) => {
@@ -51,6 +52,13 @@ const DrawerItems = props => {
 }
 
 export default function DrawerContentCustom({ props }){
+    const navigation = useNavigation();
+    let loggedUser = {};
+    const data = useSelector(state => state.LoginReducer.data);
+    loggedUser = data ? data.user : {};
+
+
+
     return (
         <View style={globalStyle.container}>
             <AnimatedLinearGradient
@@ -65,8 +73,8 @@ export default function DrawerContentCustom({ props }){
                         size={50}
                         />
                         <View style={navStyle.infoTextHolder}>
-                            <Text style={navStyle.text} >Md. Jashim Ali</Text>
-                            <Text style={navStyle.subText} >jashim@gmail.com</Text>
+                            <Text style={navStyle.text} ></Text>
+                            <Text style={navStyle.subText} ></Text>
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -76,6 +84,9 @@ export default function DrawerContentCustom({ props }){
                 <DrawerItem
                     icon={() => <AntDesign name="logout" size={24} color="green" />}
                     label="Log out"
+                    onPress={() => {
+                        navigation.navigate("Login");
+                    }}
                 />
             </View>
             </AnimatedLinearGradient>

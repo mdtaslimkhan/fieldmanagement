@@ -4,13 +4,13 @@ import Header from '../components/header';
 import { globalStyle, images } from '../styles/globalStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNoticeList } from '../redux/slices/noticeListSlice';
-import LoaderSpeen from '../components/loaderSpeen';
+import { LoaderSpeen } from '../components/loaderSpeen';
 
 export default function Notice() {
   const nList = useSelector(state => state.NoticeListReducer);
   const dispatch = useDispatch();
 
-  console.log(JSON.stringify(nList.data));
+  // console.log(JSON.stringify(nList.data));
   const handlePress = (item) => {
     console.log(item.id)
   }

@@ -7,17 +7,19 @@ import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { tableStyle } from '../styles/tableStyle';
 import {StyleSheet, ScrollView } from 'react-native';
 import { getSeminarList } from '../redux/slices/seminarListSlice';
-import LoaderSpeen from '../components/loaderSpeen';
+import { LoaderSpeen } from '../components/loaderSpeen';
+
+
 
 export default function SeminarList({ navigation }) {
+navigation.setOptions({title: "Seminar List"});
+
 const sList = useSelector((state) => state.SeminarListReducer);
 const dispatch = useDispatch();
-
-console.log(JSON.stringify(sList));
+// console.log(JSON.stringify(sList));
 useEffect(() => {
     dispatch(getSeminarList());
 },[])
-
 
 const tabelHeader = {
   tableHead: ['Sl', 'Date','Host', 'Upazila', 'Village', 'Time', 'Presenter Name','Action'],
@@ -25,8 +27,13 @@ const tabelHeader = {
 }
 
 
-const element = (data, index) => (
-  <TouchableOpacity onPress={() => console.log(data)}>
+
+  const navTo = (vl, data) => {
+    navigation.navigate(vl, { data: data})
+  }
+
+const element = (data, rowData) => (
+  <TouchableOpacity onPress={() => navTo("SeminarForm", rowData) }>
     <View style={tableStyle.btn}>
     <AntDesign style={tableStyle.icon} name="edit"  size={25} color="green" />
     </View>
@@ -46,7 +53,7 @@ const RowList = () => {
         <Row
           key={index}
           data={rowData.map((cellData, cellIndex) => (
-            <Cell key={cellIndex} data={cellIndex === 7 ? element(cellData, index) : cellData} textStyle={tableStyle.bodytext}/>
+            <Cell key={cellIndex} data={cellIndex === 7 ? element(cellData, sList.data[index]) : cellData} textStyle={tableStyle.bodytext}/>
           ))}
           widthArr={tabelHeader.widthArr}
           style={[tableStyle.row, index%2 && {backgroundColor: '#F7F6E7'}]}

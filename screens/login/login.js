@@ -16,10 +16,10 @@ const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
 
 
-export default function Login() {
+export default function Login({ navigation }) {
 
 
-    const [isShow, setIsShow] = useState(false);
+    const [isShow, setIsShow] = useState(true);
 
     const switchscreen = (val) => {
         setIsShow(val);
@@ -36,8 +36,8 @@ return (
     style={{ flex: 1 }}>
             <View style={loginRegisterStyle.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-                { isShow ? <LoginFields switchscreen={switchscreen} /> :
-                <RegisterFields switchscreen={switchscreen} /> }
+                { isShow ? <LoginFields navigation={navigation} switchscreen={switchscreen} /> :
+                <RegisterFields navigation={navigation} switchscreen={switchscreen} /> }
                 </ScrollView>
             </View>
     </AnimatedLinearGradient>

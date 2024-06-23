@@ -10,20 +10,28 @@ import CustomSelect from '../../components/customSelect';
 import * as yup from 'yup';
 import DatePicker from 'react-native-date-picker';
 import { GetDateCustom } from '../../components/common';
+import { LoaderSpeen } from '../../components/loaderSpeen';
+import { guestDataPost } from '../../components/api';
+
+
+
 
 const reviewSchema = yup.object({
   Plan: yup.string().required(),
-  Presenter_Name: yup.string().required().notOneOf([yup.ref('Presenter')]),
+  Presenter_Name: yup.string().required(),
   Guest_Name: yup.string().required().min(4).max(30),
   address: yup.string().required().min(4).max(300),
   Mobile: yup.string().required().min(4).max(300),
 });
 
 
-export default function WorkSheet() {
-
-  const [date, setDate] = useState(new Date("2021-12-31"))
-  const [open, setOpen] = useState(false)
+export default function WorkSheet({route, navigation}) {
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+  const [isLoader, setLoader] = useState(false);
+  const [isError, setError] = useState(false);
+  const { data } = route.params;
+  // console.log(JSON.stringify(data));
   
 
   const [isShow, setIsShow] = useState(false);
@@ -32,6 +40,21 @@ export default function WorkSheet() {
       setIsShow(true);
       console.log("true : " + isShow);
   }
+
+  
+  let initialvalue = {};
+  if(data){
+    initialvalue = data;
+    navigation.setOptions({title: "Edit Work Sheet"});
+  }else{
+    navigation.setOptions({title: "Create a Work Item"});
+    initialvalue = {Date: date, Plan:'', Presenter_Name: '', Guest_Name: '',Address: '', Mobile: '',
+      Comment: '', Comment_2nd: '', Comment_3rd: ''  };
+  }
+  const navTo = (vl) => {
+    navigation.navigate(vl)
+  }
+
 
   const planList = [
     {title: 'Seminar'},
@@ -48,18 +71,35 @@ export default function WorkSheet() {
 
 
 return (
+  <View style={workSheetStyle.container}>
+  { !isLoader ?
+    
     <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
 
     <View style={workSheetStyle.container}>
         <View style={workSheetStyle.content}>
 
                 <Formik 
-                    initialValues={{Date: "", Plan:'', Presenter_Name: '', Guest_Name: '',Address: '', Mobile: '',
-                    Comment: '', Comment_2nd: '', Comment_3rd: ''  }}
-                    validationSchema={reviewSchema}
-                    onSubmit={(val, actions) => {
+                    initialValues={initialvalue}
+                   // validationSchema={reviewSchema}
+                    onSubmit={async(val, actions) => {
                        // actions.resetForm();
                         // textHandler(val);
+                        console.log(val);
+                        let vl = null;
+                        setLoader(true);
+                        if(data){
+                          vl = await guestDataPost("updateWorkSheet", val);
+                        }else{
+                          vl = await guestDataPost("postWorkSheet", val);
+                          console.log(val);
+                        }
+                       if(!vl.error){
+                         setLoader(false);
+                         navTo("WorkSheetList");
+                       }else{
+                         setError(true);
+                       }
                         console.log(val);
                 }}>
                     {(props) =>(
@@ -74,7 +114,8 @@ return (
                                   onConfirm={(date) => {
                                     setOpen(false)
                                     setDate(date)
-                                    console.log("date string :" + date.getDay())
+                                    console.log("date string :" + date.getDay());
+                                    props.values.Date = date;
                                   }}
                                   onCancel={() => {
                                     setOpen(false)
@@ -87,6 +128,8 @@ return (
                                 <GetDateCustom setOpen={setOpen} date={date ? date.getMonth() : 'Month'} type={'Month'} />
                                 <GetDateCustom setOpen={setOpen} date={date ? date.getFullYear() : 'Year'} type={'Year'} />
                             </View>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Date && props.errors.Date}</Text>
+                        
 
                            <Text style={loginRegisterStyle.text}>Plan </Text>
                             <CustomSelect label={"Plan"} 
@@ -155,7 +198,9 @@ return (
                 </Formik>        
         </View>
   </View>
-  </ScrollView>
+  </ScrollView> : <LoaderSpeen />
+}      
+</View>
 );
 
 

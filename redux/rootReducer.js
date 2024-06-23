@@ -5,6 +5,7 @@ import GuestListReducer from "./slices/guestListSlice";
 import NoticeListReducer from "./slices/noticeListSlice";
 import SeminarListReducer from "./slices/seminarListSlice";
 import TargetAndAchiveReducer from "./slices/targetAndAchiveSlice";
+import LoginReducer from "./slices/loginSlice";
 
 
 export default combineReducers({
@@ -14,4 +15,5 @@ export default combineReducers({
     NoticeListReducer,
     SeminarListReducer,
     TargetAndAchiveReducer,
+    LoginReducer
 });

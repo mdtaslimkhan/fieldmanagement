@@ -7,14 +7,15 @@ import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { tableStyle } from '../styles/tableStyle';
 import {StyleSheet, ScrollView } from 'react-native';
 import { guestDataFetch } from '../redux/slices/guestListSlice';
-import LoaderSpeen from '../components/loaderSpeen';
+import { LoaderSpeen } from '../components/loaderSpeen';
+import { useNavigation } from '@react-navigation/native';
 
 
 export default function GuestList({ navigation }) {
 const gList = useSelector(state => state.GuestListReducer);
 const dispatch = useDispatch();
-console.log("====================================");
-console.log(JSON.stringify(gList.data));
+// console.log("====================================");
+// console.log(JSON.stringify(gList.data));
 useEffect(() => {
     dispatch(guestDataFetch());
 },[])
@@ -25,9 +26,13 @@ const tabelHeader = {
   widthArr: [80, 120, 160, 120, 80, 80, 80]
 }
 
+const navTo = (vl, data) => {
+  navigation.navigate(vl, { data : data })
+}
 
-const element = (data, index) => (
-  <TouchableOpacity onPress={() => console.log(data)}>
+
+const element = (data, index, rowData) => (
+  <TouchableOpacity onPress={() => navTo("GuestListCreate", rowData)}>
     <View style={tableStyle.btn}>
     <AntDesign style={tableStyle.icon} name="edit"  size={25} color="green" />
     </View>
@@ -47,7 +52,7 @@ const RowList = () => {
         <Row
           key={index}
           data={rowData.map((cellData, cellIndex) => (
-            <Cell key={cellIndex} data={cellIndex === 6 ? element(cellData, index) : cellData} textStyle={tableStyle.bodytext}/>
+            <Cell key={cellIndex} data={cellIndex === 6 ? element(cellData, index, gList.data[index]) : cellData} textStyle={tableStyle.bodytext}/>
           ))}
           widthArr={tabelHeader.widthArr}
           style={[tableStyle.row, index%2 && {backgroundColor: '#F7F6E7'}]}

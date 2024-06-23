@@ -172,6 +172,11 @@ export const globalStyle = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.3)',
     padding: 20
   },
+  loaderOnly: {
+    borderRadius: 40,
+    height: 40,
+    width: 40,
+  },
   loaderHolder: {
     flex: 1,
     justifyContent: 'center',
@@ -183,6 +188,9 @@ export const globalStyle = StyleSheet.create({
     padding: 20,
     borderRadius: 10
   },
+  loader: {
+
+  }
   
    
 

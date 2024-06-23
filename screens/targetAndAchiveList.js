@@ -9,12 +9,12 @@ import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { tableStyle } from '../styles/tableStyle';
 import {StyleSheet, ScrollView } from 'react-native';
 import { targetAndAchiveFetch } from '../redux/slices/targetAndAchiveSlice';
-import LoaderSpeen from '../components/loaderSpeen';
+import { LoaderSpeen } from '../components/loaderSpeen';
 
 export default function TargetAndAchiveList({ navigation }) {
 const aList = useSelector(state => state.TargetAndAchiveReducer);
 const dispatch = useDispatch();
-console.log(JSON.stringify(aList.data));
+// console.log(JSON.stringify(aList.data));
 useEffect(() => {
   dispatch(targetAndAchiveFetch());
 },[])
@@ -25,14 +25,17 @@ const tabelHeader = {
   widthArr: [80, 160, 120, 120, 120, 120, 120, 180, 180 ,180,60]
 }
 
-
-const element = (data, index) => (
-  <TouchableOpacity onPress={() => console.log(data)}>
+const element = (data, rowData) => (
+  <TouchableOpacity onPress={() => navTo("TargetAndAchive", rowData)}>
     <View style={tableStyle.btn}>
     <AntDesign style={tableStyle.icon} name="edit"  size={25} color="green" />
     </View>
   </TouchableOpacity>
 );
+
+const navTo = (vl, data) => {
+  navigation.navigate(vl, {data: data})
+}
 
 const RowList = () => {
   const tableData = [];
@@ -48,7 +51,7 @@ const RowList = () => {
         <Row
           key={index}
           data={rowData.map((cellData, cellIndex) => (
-            <Cell key={cellIndex} data={cellIndex === 10 ? element(cellData, index) : cellData} textStyle={tableStyle.bodytext}/>
+            <Cell key={cellIndex} data={cellIndex === 10 ? element(cellData, aList.data[index]) : cellData} textStyle={tableStyle.bodytext}/>
           ))}
           widthArr={tabelHeader.widthArr}
           style={[tableStyle.row, index%2 && {backgroundColor: '#F7F6E7'}]}

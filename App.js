@@ -43,7 +43,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    onFetchUpdateAsync();
+   // onFetchUpdateAsync();
   },[]);
 
 
@@ -65,10 +65,9 @@ const StackNav = () => {
     },
     headerTintColor: '#fff',
     headerTitleAlign: 'center',
-    
   }} 
   // Dashboard will be initial
-  initialRouteName="Dashboard"> 
+  initialRouteName="Login"> 
     {/* // header left we can use direct in stack navigation with screenOptions and also can use only one screen too */}
     <Stack.Screen name="Dashboard" component={Dashboard} options={{
       headerLeft: () => {

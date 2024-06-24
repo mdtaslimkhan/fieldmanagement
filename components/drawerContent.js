@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { AntDesign } from '@expo/vector-icons';
@@ -52,10 +52,17 @@ const DrawerItems = props => {
 }
 
 export default function DrawerContentCustom({ props }){
+    const [user, setUser] = useState({});
     const navigation = useNavigation();
-    let loggedUser = {};
     const data = useSelector(state => state.LoginReducer.data);
-    loggedUser = data ? data.user : {};
+   // console.log(JSON.stringify(user));
+    useEffect(() => {
+        if(data){
+            setUser(data.user);
+        }
+    },[data])
+
+  
 
 
 
@@ -73,8 +80,8 @@ export default function DrawerContentCustom({ props }){
                         size={50}
                         />
                         <View style={navStyle.infoTextHolder}>
-                            <Text style={navStyle.text} ></Text>
-                            <Text style={navStyle.subText} ></Text>
+                            <Text style={navStyle.text} >{user.Name}</Text>
+                            <Text style={navStyle.subText} >{user.Email}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>

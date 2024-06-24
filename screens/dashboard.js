@@ -7,13 +7,17 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 export default function Dashboard({ navigation }) {
-  let loggedUser = {};
+  const [user, setUser] = useState({});
   const data = useSelector(state => state.LoginReducer.data);
-  if(!data){
-    navigation.replace("Login");
-  }else{
-    loggedUser = data ? data.user : {};
-  }
+  useEffect(() => {
+    if(data){
+      setUser(data.user);
+    }else{
+      navigation.replace("Login");
+    }
+  },[data])
+
+
 
   navigation.setOptions({title: "Dashboard"});
   

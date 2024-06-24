@@ -20,6 +20,8 @@ useEffect(() => {
 },[])
 
 
+navigation.setOptions({title: "Target and Achive"});
+
 const tabelHeader = {
   tableHead: ['Sl', 'Project Prensenter', 'Seminar 1st', 'Seminar 2nd', 'Seminar 3rd', 'Seminar 4th', 'Seminar 5th', 'Personal invite', 'Member to Member', 'Personal invite with name','Action'],
   widthArr: [80, 160, 120, 120, 120, 120, 120, 180, 180 ,180,60]

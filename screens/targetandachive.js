@@ -34,7 +34,7 @@ export default function TargetAndAchive({route, navigation}) {
   const [isError, setError] = useState(false);
   const [isShow, setIsShow] = useState(false);
   const { data } = route.params;
-  // console.log(JSON.stringify(data));
+ // console.log(JSON.stringify(data));
 
 
   let initialvalue = {};
@@ -127,58 +127,58 @@ return (
                                 placeholder='Total Member Number' style={loginRegisterStyle.input}
                                 onChangeText={props.handleChange('Totalmember')}
                                 keyboardType='number-pad'
-                                value={props.values.totalmember}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.totalmember && props.errors.totalmember}</Text>
+                                value={props.values.Totalmember}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Totalmember && props.errors.Totalmember}</Text>
                            
                             <Text style={loginRegisterStyle.text}>Project Presenter </Text>
                             <TextInput 
                                 placeholder='Project Presenter ' style={loginRegisterStyle.input}
                                 onChangeText={props.handleChange('Presenter')}
-                                value={props.values.presenter}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.presenter && props.errors.presenter}</Text>
+                                value={props.values.Presenter}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Presenter && props.errors.Presenter}</Text>
                             
                             <Text style={loginRegisterStyle.text}>Seminar </Text>
                             <TextInput 
                                 placeholder='Seminar' style={loginRegisterStyle.input}
                                 onChangeText={props.handleChange('Seminar')}
-                                value={props.values.seminar}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.seminar && props.errors.seminar}</Text>
+                                value={props.values.Seminar}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar && props.errors.Seminar}</Text>
 
                             <Text style={loginRegisterStyle.text}>Seminar 1st </Text>
                             <TextInput 
                                 placeholder='Seminar 1st ' style={loginRegisterStyle.input}
                                 onChangeText={props.handleChange('Seminar1')}
-                                value={props.values.seminar1}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.seminar1 && props.errors.seminar1}</Text>
+                                value={props.values.Seminar1}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar1 && props.errors.Seminar1}</Text>
 
                             <Text style={loginRegisterStyle.text}>Seminar 2nd </Text>
                             <TextInput 
                                 placeholder='Seminar 2nd ' style={loginRegisterStyle.input}
                                 onChangeText={props.handleChange('Seminar2')}
-                                value={props.values.seminar2}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.seminar2 && props.errors.seminar2}</Text>
+                                value={props.values.Seminar2}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar2 && props.errors.Seminar2}</Text>
 
                             <Text style={loginRegisterStyle.text}>Seminar 3rd </Text>
                             <TextInput 
                                 placeholder='Seminar 3rd' style={loginRegisterStyle.input}
                                 onChangeText={props.handleChange('Seminar3')}
-                                value={props.values.seminar3}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.seminar3 && props.errors.seminar3}</Text>
+                                value={props.values.Seminar3}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar3 && props.errors.Seminar3}</Text>
 
                             <Text style={loginRegisterStyle.text}>Seminar 4th </Text>
                             <TextInput 
                                 placeholder='Seminar 4th' style={loginRegisterStyle.input}
                                 onChangeText={props.handleChange('Seminar4')}
-                                value={props.values.seminar4}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.seminar4 && props.errors.seminar4}</Text>
+                                value={props.values.Seminar4}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar4 && props.errors.Seminar4}</Text>
 
 
                             <Text style={loginRegisterStyle.text}>Seminar 5th </Text>
                             <TextInput 
                                 placeholder='Seminar 5th' style={loginRegisterStyle.input}
                                 onChangeText={props.handleChange('Seminar5')}
-                                value={props.values.seminar5}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.seminar5 && props.errors.seminar5}</Text>
+                                value={props.values.Seminar5}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar5 && props.errors.Seminar5}</Text>
 
                             <Text style={loginRegisterStyle.text}>Your Personal Invite </Text>
                             <TextInput 

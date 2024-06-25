@@ -22,20 +22,21 @@ export default function LoginFields({ switchscreen, navigation }) {
     const dispatch = useDispatch();
 
    useEffect(() => {
+    // we need to user useEffect before setOptions for navigation
+    navigation.setOptions({title: "Login"});
+    console.log(JSON.stringify(userProfile.data));
     if(userProfile.data != null){
-        if(userProfile.data.user){
+        if(userProfile.data.user != null){
+            setLoader(false);
             navTo("Dashboard");
         }else{
             setLoader(false);
-            ToastAndroid.show('Username or Password wrong', ToastAndroid.SHORT);
         }
     }
-  
+    
    },[userProfile]);
 
-    navigation.setOptions({title: "Login"});
     const initialvalue = {email: '', Password: '' };
-    
     const navTo = (vl) => {
         navigation.replace(vl);
     }

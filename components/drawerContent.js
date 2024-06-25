@@ -10,7 +10,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Animated } from "react-native";
 import { gradiantEnd, gradiantStart, navgradiantEnd, navgradiantStart } from '../styles/styleConstants';
 import { navStyle } from '../styles/navStyle';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { User } from './user';
+import { UserObject } from './logincheck';
+import { logOut } from '../redux/slices/loginSlice';
+
 
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
@@ -52,19 +56,20 @@ const DrawerItems = props => {
 }
 
 export default function DrawerContentCustom({ props }){
-    const [user, setUser] = useState({});
-    const navigation = useNavigation();
+    const [user, setUser] = useState(User);
     const data = useSelector(state => state.LoginReducer.data);
-   // console.log(JSON.stringify(user));
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
     useEffect(() => {
-        if(data){
+        if(data != null && data.user != null){
             setUser(data.user);
         }
     },[data])
 
-  
 
-
+    const handleLogout = () => {
+        dispatch(logOut());
+    }
 
     return (
         <View style={globalStyle.container}>
@@ -89,11 +94,9 @@ export default function DrawerContentCustom({ props }){
             </DrawerContentScrollView>
             <View style={navStyle.drawBottomSection}>
                 <DrawerItem
-                    icon={() => <AntDesign name="logout" size={24} color="green" />}
+                    icon={() => <AntDesign name="logout" size={24} color="red" />}
                     label="Log out"
-                    onPress={() => {
-                        navigation.navigate("Login");
-                    }}
+                    onPress={() => handleLogout()}
                 />
             </View>
             </AnimatedLinearGradient>

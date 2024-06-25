@@ -16,9 +16,12 @@ const dispatch = useDispatch();
 // console.log(wData.isLoader);
 // console.log(wData.isLoader);
 useEffect(() => {
+  navigation.setOptions({title: "Work Sheet List"});
   dispatch(wrokDataFetch());
  // console.warn(gList);
 },[])
+
+
 
 
 const tabelHeader = {

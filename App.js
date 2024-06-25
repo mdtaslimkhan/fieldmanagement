@@ -24,6 +24,11 @@ import Profile from './screens/profile';
 import { AppRegistry } from 'react-native';
 import Privacy from './screens/privacy';
 import * as Updates from 'expo-updates';
+import persistStore from 'redux-persist/es/persistStore';
+import { PersistGate } from 'redux-persist/integration/react';
+
+// redux persistore configure
+let persistor = persistStore(store);
 
 AppRegistry.registerComponent('main', () => App);
 
@@ -49,7 +54,9 @@ export default function App() {
 
   return (
     <Provider store={store} >
+      <PersistGate persistor={persistor}>
       <AppHolder />
+      </PersistGate>
     </Provider>
   );
 }

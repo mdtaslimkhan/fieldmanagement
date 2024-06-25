@@ -16,11 +16,11 @@ const aList = useSelector(state => state.TargetAndAchiveReducer);
 const dispatch = useDispatch();
 // console.log(JSON.stringify(aList.data));
 useEffect(() => {
+  navigation.setOptions({title: "Target and Achive"});
   dispatch(targetAndAchiveFetch());
 },[])
 
 
-navigation.setOptions({title: "Target and Achive"});
 
 const tabelHeader = {
   tableHead: ['Sl', 'Project Prensenter', 'Seminar 1st', 'Seminar 2nd', 'Seminar 3rd', 'Seminar 4th', 'Seminar 5th', 'Personal invite', 'Member to Member', 'Personal invite with name','Action'],

@@ -12,12 +12,12 @@ import { LoaderSpeen } from '../components/loaderSpeen';
 
 
 export default function SeminarList({ navigation }) {
-navigation.setOptions({title: "Seminar List"});
-
-const sList = useSelector((state) => state.SeminarListReducer);
-const dispatch = useDispatch();
-// console.log(JSON.stringify(sList));
-useEffect(() => {
+  
+  const sList = useSelector((state) => state.SeminarListReducer);
+  const dispatch = useDispatch();
+  // console.log(JSON.stringify(sList));
+  useEffect(() => {
+    navigation.setOptions({title: "Seminar List"});
     dispatch(getSeminarList());
 },[])
 

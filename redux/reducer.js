@@ -1,4 +1,4 @@
-import { ADD_GUEST_TO_LIST, ADD_TO_CART } from "./constant";
+import { ADD_GUEST_TO_LIST, ADD_TO_CART, USER_LOGOUT } from "./constant";
 
 const initialState = [];
 

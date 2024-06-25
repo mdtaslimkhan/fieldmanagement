@@ -2,24 +2,29 @@ import React, {useEffect, useState} from 'react';
 import {Modal,Checkbox , Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { globalStyle } from '../styles/globalStyle';
 import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation , DrawerActions } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
+import { User } from '../components/user';
+import { UserObject } from '../components/logincheck';
 
 
 export default function Dashboard({ navigation }) {
-  const [user, setUser] = useState({});
+  const text = useSelector((state) => state.reducer);
   const data = useSelector(state => state.LoginReducer.data);
   useEffect(() => {
+    navigation.setOptions({title: "Dashboard"});
     if(data){
-      setUser(data.user);
-    }else{
-      navigation.replace("Login");
+      if(data.user){
+        console.log("hello data: "+JSON.stringify(data.user.Name));
+      }else{
+        console.log("logout user");
+        navigation.dispatch(DrawerActions.closeDrawer());
+        navigation.replace("Login")
+      }
     }
+
   },[data])
 
-
-
-  navigation.setOptions({title: "Dashboard"});
   
 const val = [
 { label: 'Work list', id: 1, to: 'WorkSheetList'},
@@ -30,11 +35,7 @@ const val = [
 { label: 'Help Support', id: 6, to: 'HelpAndSupport'},
 
 ];
-const text = useSelector((state) => state.reducer);
 
-useEffect(() => {
- 
-},[text])
 
 
 const DashItemLayout = ({label, to}) => {
@@ -74,7 +75,7 @@ const DashTime = () => {
       <Text style={globalStyle.dashTimeLabel} >Minutes</Text>
     </View>
     <View style={globalStyle.dashTimeLabel} >
-      <Text style={globalStyle.dashTime} >33</Text>
+      <Text style={globalStyle.dashTime} >35</Text>
       <Text style={globalStyle.dashTimeLabel} >Seconds</Text>
     </View>
   </View>)
@@ -115,6 +116,7 @@ const NavigatePageItem = ({ page, handleNavigate }) => {
   return (
     <TouchableOpacity onPress={() => {
       setModal(false)
+      // null data pass all the screen
       navigation.navigate(handleNavigate, {data: null})
       }}>
       <View style={{ backgroundColor: '#fff', padding: 16, borderWidth: 1, borderColor: '#ebebeb',width: '100%' }}>

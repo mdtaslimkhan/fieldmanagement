@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Text, View, Button, TextInput, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { loginRegisterStyle } from './loginStyle';
 import { Formik } from 'formik';
@@ -6,13 +6,15 @@ import * as yup from 'yup';
 import { guestDataPost } from '../../components/api';
 import { LoaderSpeen, LoaderOnly } from '../../components/loaderSpeen';
 import { workSheetStyle } from '.././worksheet/workSheetStyle';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../../redux/slices/loginSlice';
 
 
 
 
 const reviewSchema = yup.object({
     Name: yup.string().required().min(4).max(30),
-    Username: yup.string().required().min(4).max(30),
+   // Username: yup.string().required().min(4).max(30),
     Desig: yup.string().required().min(4).max(30),
     Email: yup.string().required().email().matches(/@[^.]*\./),
     Phone: yup.string().required().min(4).max(30),
@@ -25,13 +27,25 @@ export default function RegisterFields({ switchscreen, navigation }) {
     const [isShow, setIsShow] = useState(false);
     const [isLoader, setLoader] = useState(false);
     const [isError, setError] = useState(false);
+    const dispatch = useDispatch();
+    let initialvalue = {Name: '', Desig: '', Phone: '' , Email: '',Password: ''};
+    const userProfile = useSelector(state => state.LoginReducer);
 
-    let initialvalue = {Name: '', Username: '', Desig: '', Phone: '' , Email: '',Password: ''};
-    navigation.setOptions({title: "Register"});
+    useEffect(() => {
+        navigation.setOptions({title: "Register"});
+        if(userProfile.data != null){
+            if(userProfile.data.user != null){
+                setLoader(false);
+                navTo("Dashboard");
+            }else{
+                setLoader(false);
+            }
+        }
+    },[userProfile]);
    
     const navTo = (vl) => {
         navigation.replace(vl);
-      }
+    }
 return (
     <View style={workSheetStyle.container}>
     { !isLoader ?
@@ -50,16 +64,10 @@ return (
                   //  actions.resetForm();
                     // textHandler(val);
                     console.log(val);
-                    let vl = null;
-                    setLoader(true);
-                    vl = await guestDataPost("postUser", val);
-                   if(!vl.error){
-                     setLoader(false);
-                     navTo("Dashboard");
-                   }else{
-                     setError(true);
-                   }
-                   console.log(vl.data);
+                  //  let vl = null;
+                  //  setLoader(true);
+                    dispatch(registerUser(val));
+                  
                     
                     
             }}>
@@ -72,13 +80,13 @@ return (
                             value={props.values.Name}/>
                         <Text style={loginRegisterStyle.errorText}>{props.touched.Name && props.errors.Name}</Text>
 
-                        <Text style={loginRegisterStyle.text}>Your username </Text>
+                        {/* <Text style={loginRegisterStyle.text}>Your username </Text>
                         <TextInput 
                             placeholder='Usernames' style={loginRegisterStyle.input}
                             onChangeText={props.handleChange('Username')}
                             value={props.values.Username}/>
                         <Text style={loginRegisterStyle.errorText}>{props.touched.Username && props.errors.Username}</Text>
-                        <Text style={loginRegisterStyle.text}>Your Designation </Text>
+                        <Text style={loginRegisterStyle.text}>Your Designation </Text> */}
                         <TextInput 
                             placeholder='Designation' style={loginRegisterStyle.input}
                             onChangeText={props.handleChange('Desig')}

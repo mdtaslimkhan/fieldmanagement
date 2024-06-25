@@ -22,7 +22,7 @@ export default function HelpAndSupport() {
     return (
       <View style={{ justifyContent: 'center' , alignItems: 'center', flex: 1}}>
         <Text style={globalStyle.text}>Support page </Text>
-        <Text style={globalStyle.text}>Version 1.5.1 </Text>
+        <Text style={globalStyle.text}>Version 1.5.2 </Text>
         <TouchableOpacity style={globalStyle.item} onPress={() => onFetchUpdateAsync()}>
           <Text>Update</Text>
         </TouchableOpacity>

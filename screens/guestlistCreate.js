@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, {useEffect, useState, Component } from 'react';
 import {StyleSheet, Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { loginRegisterStyle } from './login/loginStyle'; 
 import { Formik, Field, Form } from 'formik';
@@ -27,13 +27,16 @@ export default function GuestListCreate({ route, navigation }) {
   // console.log(JSON.stringify(data));
 
   let initialvalue = {};
-  if(data){
-    initialvalue = data;
-    navigation.setOptions({title: "Edit Guest"});
-  }else{
-    navigation.setOptions({title: "Create a Guest"});
-    initialvalue = { Name: '',Address: '', Mobile: '', Relation: '', Category: ''};
-  }
+
+  useEffect(() => {
+    if(data){
+      initialvalue = data;
+      navigation.setOptions({title: "Edit Guest"});
+    }else{
+      navigation.setOptions({title: "Create a Guest"});
+      initialvalue = { Name: '',Address: '', Mobile: '', Relation: '', Category: ''};
+    }
+  },[])
   const navTo = (vl) => {
     navigation.navigate(vl)
   }

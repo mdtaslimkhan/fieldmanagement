@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, {useEffect, useState, Component } from 'react';
 import {StyleSheet, Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Header from '../../components/header';
 import { globalStyle } from '../../styles/globalStyle';
@@ -40,17 +40,22 @@ export default function WorkSheet({route, navigation}) {
       setIsShow(true);
       console.log("true : " + isShow);
   }
+  let initialvalue = {};
+
+  useEffect(() => {
+    navigation.setOptions({title: "Dashboard"});
+    if(data){
+      initialvalue = data;
+      navigation.setOptions({title: "Edit Work Sheet"});
+    }else{
+      navigation.setOptions({title: "Create a Work Item"});
+      initialvalue = {Date: date, Plan:'', Presenter_Name: '', Guest_Name: '',Address: '', Mobile: '',
+        Comment: '', Comment_2nd: '', Comment_3rd: ''  };
+    }
+
+  },[])
 
   
-  let initialvalue = {};
-  if(data){
-    initialvalue = data;
-    navigation.setOptions({title: "Edit Work Sheet"});
-  }else{
-    navigation.setOptions({title: "Create a Work Item"});
-    initialvalue = {Date: date, Plan:'', Presenter_Name: '', Guest_Name: '',Address: '', Mobile: '',
-      Comment: '', Comment_2nd: '', Comment_3rd: ''  };
-  }
   const navTo = (vl) => {
     navigation.navigate(vl)
   }

@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, {useEffect, useState, Component } from 'react';
 import {Modal, StyleSheet, Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { loginRegisterStyle } from './login/loginStyle'; 
 import { Formik, Field, Form } from 'formik';
@@ -36,15 +36,18 @@ export default function SeminarForm({route, navigation }) {
       setIsShow(true);
       console.log("true : " + isShow);
   }
-
   let initialvalue = {};
-  if(data){
-    initialvalue = data;
-    navigation.setOptions({title: "Edit Seminar"});
-  }else{
-    navigation.setOptions({title: "Create a Seminar Item"});
-    initialvalue = {Date: date, Time: time, HostName: '',Upazila: '', Village: '', Presenter: '' };
-  }
+  useEffect(() => {
+    if(data){
+      initialvalue = data;
+      navigation.setOptions({title: "Edit Seminar"});
+    }else{
+      navigation.setOptions({title: "Create a Seminar Item"});
+      initialvalue = {Date: date, Time: time, HostName: '',Upazila: '', Village: '', Presenter: '' };
+    }
+  },[])
+
+
   const navTo = (vl) => {
     navigation.navigate(vl)
   }

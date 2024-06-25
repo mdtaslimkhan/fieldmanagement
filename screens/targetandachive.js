@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, {useEffect, useState, Component } from 'react';
 import {StyleSheet, Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Header from '../components/header';
 import { globalStyle } from '../styles/globalStyle';
@@ -35,18 +35,20 @@ export default function TargetAndAchive({route, navigation}) {
   const [isShow, setIsShow] = useState(false);
   const { data } = route.params;
  // console.log(JSON.stringify(data));
-
-
   let initialvalue = {};
-  if(data){
-    initialvalue = data;
-    navigation.setOptions({title: "Edit Target and Achive"});
-  }else{
-    navigation.setOptions({title: "Create a Target and Achive"});
-    initialvalue = {Totalmember:'', Presenter: '',Seminar: '', Seminar1: '',
-      Seminar2: '', Seminar3: '', Seminar4: '', Seminar5: '',
-      Personalinvite: '',MemberToMember: '', InviteWithName: '' , Date: date};
-  }
+
+  useEffect(() => {
+    if(data){
+      initialvalue = data;
+      navigation.setOptions({title: "Edit Target and Achive"});
+    }else{
+      navigation.setOptions({title: "Create a Target and Achive"});
+      initialvalue = {Totalmember:'', Presenter: '',Seminar: '', Seminar1: '',
+        Seminar2: '', Seminar3: '', Seminar4: '', Seminar5: '',
+        Personalinvite: '',MemberToMember: '', InviteWithName: '' , Date: date};
+    }
+  },[])
+
   const navTo = (vl) => {
     navigation.navigate(vl)
   }

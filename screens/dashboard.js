@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState , useRef} from 'react';
 import {Modal,Checkbox , Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { globalStyle } from '../styles/globalStyle';
 import { useSelector } from 'react-redux';
@@ -6,11 +6,13 @@ import { useNavigation , DrawerActions } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 import { User } from '../components/user';
 import { UserObject } from '../components/logincheck';
+import Review from './review';
 
 
 export default function Dashboard({ navigation }) {
   const text = useSelector((state) => state.reducer);
   const data = useSelector(state => state.LoginReducer.data);
+  console.log(JSON.stringify(data));
   useEffect(() => {
     navigation.setOptions({title: "Dashboard"});
     if(data){
@@ -23,7 +25,12 @@ export default function Dashboard({ navigation }) {
       }
     }
 
+    childRef.current.sayHi();
+    
+
   },[data])
+
+
 
   
 const val = [
@@ -126,7 +133,7 @@ const NavigatePageItem = ({ page, handleNavigate }) => {
   )
 }
 
-
+const childRef = useRef();
 return (
 <TouchableWithoutFeedback onPress={() => {
   Keyboard.dismiss()
@@ -136,7 +143,8 @@ return (
   <Modalviewobject />
   <View style={globalStyle.content}>
         <View style={globalStyle.itemTopHolder}>
-        <DashTime />
+        {/* <DashTime /> */}
+        <Review ref={childRef} />
         <View style={globalStyle.itemThumbHolderTop}>
           <View style={globalStyle.dashItemMember}>
               <Text style={globalStyle.dashItemText} >Total Member </Text>

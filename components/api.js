@@ -13,7 +13,7 @@ export const guestDataPost = async (url, data) => {
         data: data
     };
     const res = await axios.post(API_URL + url,config);
-   // console.log("hello data" + JSON.stringify(res.data.msg));
+    console.log("hello data" + JSON.stringify(res.data));
     return res;
     } catch (err) {
         console.log(err);
@@ -32,7 +32,6 @@ export const uniDataPost = async (url, data) => {
         data: data
     };
     const res = await axios.post(API_URL + url,config);
-   // console.log("hello data" + JSON.stringify(res.data.msg));
     return res;
     } catch (err) {
         console.log(err);

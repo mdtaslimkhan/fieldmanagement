@@ -2,10 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_URL } from "../../components/constants";
 import axios from "axios";
 
-export const guestDataFetch = createAsyncThunk("fetchguestList", async() => {
-    const res = await fetch(API_URL + "guestList");
+export const guestDataFetch = createAsyncThunk("fetchguestList", async(dt) => {
+    const res = await fetch(API_URL + "guestList/"+dt);
     const data = await res.json();
-  //  console.log(data);
+    console.log("user post id: "+dt);
     return data;
 });
 

@@ -25,10 +25,9 @@ const nav = [
     {icon: 'Safety', label: 'Target List', navigateTo: 'TargetAndAchiveList'},
     {icon: 'Safety', label: 'Seminar', navigateTo: 'SeminarList'},
     {icon: 'Safety', label: 'Notice', navigateTo: 'Notice'},
+    {icon: 'Safety', label: 'Profile', navigateTo: 'Profile'},
     {icon: 'Safety', label: 'Privacy', navigateTo: 'Privacy'},
     {icon: 'Safety', label: 'Help', navigateTo: 'HelpAndSupport'},
-    {icon: 'Safety', label: 'Review', navigateTo: 'Review'},
-    {icon: 'Safety', label: 'Profile', navigateTo: 'Profile'},
 ];
 
 

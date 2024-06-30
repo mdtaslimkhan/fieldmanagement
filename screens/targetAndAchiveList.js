@@ -13,11 +13,15 @@ import { LoaderSpeen } from '../components/loaderSpeen';
 
 export default function TargetAndAchiveList({ navigation }) {
 const aList = useSelector(state => state.TargetAndAchiveReducer);
+const userProfile = useSelector(state => state.LoginReducer.data);
+
 const dispatch = useDispatch();
 // console.log(JSON.stringify(aList.data));
 useEffect(() => {
   navigation.setOptions({title: "Target and Achive"});
-  dispatch(targetAndAchiveFetch());
+  if(userProfile.user != null){
+    dispatch(targetAndAchiveFetch(userProfile.user.id));
+  }
 },[])
 
 

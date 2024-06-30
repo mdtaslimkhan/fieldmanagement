@@ -2,6 +2,7 @@ import {ToastAndroid } from 'react-native';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_URL } from "../../components/constants";
 import axios from "axios";
+import { uniDataPost } from '../../components/api';
 
 const initialstate = {
     data: null,
@@ -11,50 +12,19 @@ const initialstate = {
 
 
 export const getUser = createAsyncThunk("logUser", async(val, action) =>{
-    try{
-        const config = {
-            method: 'post',
-            url: '',
-            headers: {
-                'Authorization': '',
-                'Content-Type': 'application/json'
-            },
-            data: val
-        };
-            const res = await axios.post(API_URL + "loguser",config);
-           // console.log("hello data" + JSON.stringify(res.data));
-            console.log("loggedIn : " + JSON.stringify(res.data.loggedIn));
-            if(!res.data.loggedIn){
-                ToastAndroid.show('Username or Password wrong', ToastAndroid.SHORT);
-            }
-            return res.data;
-
-        } catch (err) {
-            console.log(err);
+    const udata = await uniDataPost("loguser", val);
+        if(!udata.data.loggedIn){
+            ToastAndroid.show('Username or Password wrong', ToastAndroid.SHORT);
         }
+        return udata.data;
 });
 
 export const registerUser = createAsyncThunk("registerUser", async(val, action) =>{
-    try{
-        const config = {
-            method: 'post',
-            url: '',
-            headers: {
-                'Authorization': '',
-                'Content-Type': 'application/json'
-            },
-            data: val
-        };
-            const res = await axios.post(API_URL + "postUser",config);
-           // console.log("hello data" + JSON.stringify(res.data));
-            console.log("loggedIn : " + JSON.stringify(res.data));
-            if(res.data.loggedIn){
-                ToastAndroid.show('User logged in along register.', ToastAndroid.SHORT);
-            }
-            return res.data;
-        } catch (err) {
-            console.log(err);
+        const udata = await uniDataPost("postUser", val);
+        if(udata.data.loggedIn){
+            ToastAndroid.show('User logged in along register.', ToastAndroid.SHORT);
         }
+        return udata.data;
 });
 
 
@@ -63,10 +33,10 @@ const LoginSlice = createSlice({
     initialState: initialstate,
     reducers: {
         logOut(state) {
-         // state = initialstate;
-         console.log("hello" + JSON.stringify(state));
-         state.data.loggedIn = false;
-         state.data.user = null;
+        // console.log("hello" + JSON.stringify(state));
+       //  if(state.loggedIn && state.user){
+             state.data.loggedIn = false;
+             state.data.user = null;
         },
     },
     extraReducers: builder => {

@@ -12,6 +12,7 @@ import { GetDateCustom } from './../components/common';
 import DatePicker from 'react-native-date-picker';
 import { LoaderSpeen, LoaderOnly } from '../components/loaderSpeen';
 import { guestDataPost } from '../components/api';
+import { useSelector } from 'react-redux';
 
 const reviewSchema = yup.object({
   Presenter: yup.string().required().min(4).max(30),
@@ -28,6 +29,8 @@ const reviewSchema = yup.object({
 
 
 export default function TargetAndAchive({route, navigation}) {
+  const userProfile = useSelector(state => state.LoginReducer.data);
+
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [isLoader, setLoader] = useState(false);
@@ -36,16 +39,19 @@ export default function TargetAndAchive({route, navigation}) {
   const { data } = route.params;
  // console.log(JSON.stringify(data));
   let initialvalue = {};
+  if(data){
+    initialvalue = data;
+  }else{
+    initialvalue = {UserId: -1, Totalmember:'', Presenter: '',Seminar: '', Seminar1: '',
+      Seminar2: '', Seminar3: '', Seminar4: '', Seminar5: '',
+      Personalinvite: '',MemberToMember: '', InviteWithName: '' , Date: date};
+  }
 
   useEffect(() => {
     if(data){
-      initialvalue = data;
       navigation.setOptions({title: "Edit Target and Achive"});
     }else{
       navigation.setOptions({title: "Create a Target and Achive"});
-      initialvalue = {Totalmember:'', Presenter: '',Seminar: '', Seminar1: '',
-        Seminar2: '', Seminar3: '', Seminar4: '', Seminar5: '',
-        Personalinvite: '',MemberToMember: '', InviteWithName: '' , Date: date};
     }
   },[])
 
@@ -80,6 +86,9 @@ return (
                     onSubmit={ async(val, actions) => {
                        // actions.resetForm();
                         // textHandler(val);
+                        if(userProfile.user != null){
+                          val.UserId = userProfile.user.id;
+                        }
                         console.log(val);
                         let vl = null;
                         setLoader(true);

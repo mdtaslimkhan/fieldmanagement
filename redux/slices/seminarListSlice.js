@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_URL } from "../../components/constants";
 
 
-export const getSeminarList = createAsyncThunk("seminarList", async() =>{
-    const res = await fetch(API_URL + "seminarList");
+export const getSeminarList = createAsyncThunk("seminarList", async(id) =>{
+    const res = await fetch(API_URL + "seminarList/"+id);
     const data = await res.json();
     return data;
 });

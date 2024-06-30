@@ -6,7 +6,7 @@ import { workSheetStyle } from './worksheet/workSheetStyle';
 import { ScrollView } from 'react-native-gesture-handler';
 import CustomSelect from '../components/customSelect';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { guestDataPost } from '../components/api';
 import { LoaderSpeen, LoaderOnly } from '../components/loaderSpeen';
 
@@ -20,23 +20,28 @@ const reviewSchema = yup.object({
 
 
 export default function GuestListCreate({ route, navigation }) {
+  const userProfile = useSelector(state => state.LoginReducer.data);
+
   const dispatch = useDispatch();
   const [isLoader, setLoader] = useState(false);
   const [isError, setError] = useState(false);
   const { data } = route.params; 
-  // console.log(JSON.stringify(data));
+ // console.log(JSON.stringify(data));
 
   let initialvalue = {};
-
+  if(data){
+    initialvalue = data;
+  }else{
+    initialvalue = { Name: '',Address: '', Mobile: '', Relation: '', Category: ''};
+  }
   useEffect(() => {
     if(data){
-      initialvalue = data;
       navigation.setOptions({title: "Edit Guest"});
     }else{
       navigation.setOptions({title: "Create a Guest"});
-      initialvalue = { Name: '',Address: '', Mobile: '', Relation: '', Category: ''};
     }
-  },[])
+  },[]);
+  
   const navTo = (vl) => {
     navigation.navigate(vl)
   }
@@ -84,6 +89,11 @@ return (
                     validationSchema={reviewSchema}
                     onSubmit={async(val, actions) => {
                        // actions.resetForm();
+                      
+                       if(userProfile.user != null){
+                        val.UserId = userProfile.user.id;
+                      }
+                      console.log(val);
                        let vl = null;
                        setLoader(true);
                        if(data){

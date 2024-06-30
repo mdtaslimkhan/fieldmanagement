@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_URL } from "../../components/constants";
 
-export const targetAndAchiveFetch = createAsyncThunk("fethcTargetAndAchive", async() => {
-    const res = await fetch(API_URL + "targetList");
+export const targetAndAchiveFetch = createAsyncThunk("fethcTargetAndAchive", async(id) => {
+    const res = await fetch(API_URL + "targetList/"+id);
     const data = await res.json();
     return data;
 });

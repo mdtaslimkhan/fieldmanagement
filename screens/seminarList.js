@@ -14,11 +14,16 @@ import { LoaderSpeen } from '../components/loaderSpeen';
 export default function SeminarList({ navigation }) {
   
   const sList = useSelector((state) => state.SeminarListReducer);
+  const userProfile = useSelector(state => state.LoginReducer.data);
+
   const dispatch = useDispatch();
   // console.log(JSON.stringify(sList));
   useEffect(() => {
     navigation.setOptions({title: "Seminar List"});
-    dispatch(getSeminarList());
+    if(userProfile.user != null){
+      dispatch(getSeminarList(userProfile.user.id));
+    }
+    
 },[])
 
 const tabelHeader = {

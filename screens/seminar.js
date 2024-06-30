@@ -10,6 +10,7 @@ import { GetDateCustom } from './../components/common';
 import DatePicker from 'react-native-date-picker';
 import { guestDataPost } from '../components/api';
 import { LoaderSpeen, LoaderOnly } from '../components/loaderSpeen';
+import { useSelector } from 'react-redux';
 
 
 
@@ -22,6 +23,8 @@ const reviewSchema = yup.object({
 
 
 export default function SeminarForm({route, navigation }) {
+  const userProfile = useSelector(state => state.LoginReducer.data);
+
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState(new Date())
   const [open, setOpen] = useState(false)
@@ -37,13 +40,16 @@ export default function SeminarForm({route, navigation }) {
       console.log("true : " + isShow);
   }
   let initialvalue = {};
+  if(data){
+    initialvalue = data;
+  }else{
+    initialvalue = {UserId: -1, Date: date, Time: time, HostName: '',Upazila: '', Village: '', Presenter: '' };
+  }
   useEffect(() => {
     if(data){
-      initialvalue = data;
       navigation.setOptions({title: "Edit Seminar"});
     }else{
       navigation.setOptions({title: "Create a Seminar Item"});
-      initialvalue = {Date: date, Time: time, HostName: '',Upazila: '', Village: '', Presenter: '' };
     }
   },[])
 
@@ -77,14 +83,16 @@ return (
                     onSubmit={ async (val, actions) => {
                        // actions.resetForm();
                         // textHandler(val);
-                        console.log(val);
+                        if(userProfile.user != null){
+                          val.UserId = userProfile.user.id;
+                        }
                         let vl = null;
                         setLoader(true);
                         if(data){
                           vl = await guestDataPost("updateseminar", val);
                         }else{
                           vl = await guestDataPost("postseminar", val);
-                          console.log(val);
+                          console.log("pushed data: " + JSON.stringify(val));
                         }
                        if(!vl.error){
                          setLoader(false);

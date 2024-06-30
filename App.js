@@ -26,6 +26,7 @@ import Privacy from './screens/privacy';
 import * as Updates from 'expo-updates';
 import persistStore from 'redux-persist/es/persistStore';
 import { PersistGate } from 'redux-persist/integration/react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // redux persistore configure
 let persistor = persistStore(store);
@@ -79,11 +80,24 @@ const StackNav = () => {
     <Stack.Screen name="Dashboard" component={Dashboard} options={{
       headerLeft: () => {
         return(
+        <TouchableOpacity style={{padding: 13, marginLeft: -13}} 
+        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
         <AntDesign 
-        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
         name="windowso" 
         size={24} 
-        color="white" />
+        color="white" /></TouchableOpacity>
+        );
+      },
+      headerRight: () => {
+        return(
+          <TouchableOpacity
+          style={{padding: 13,marginRight: -13}}
+          onPress={() => navigation.navigate("Notice")}
+          >
+        <AntDesign 
+        name="notification" 
+        size={24} 
+        color="white" /></TouchableOpacity>
         );
       }
     }} />

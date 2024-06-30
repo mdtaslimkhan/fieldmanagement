@@ -11,13 +11,17 @@ import { LoaderSpeen } from '../components/loaderSpeen';
 
 export default function WorkSheetList({ navigation }) {
 const wData = useSelector(state => state.WorkSheetReducer);
+const userProfile = useSelector(state => state.LoginReducer.data);
+
 const dispatch = useDispatch();
 // console.log(JSON.stringify(wData.data));
 // console.log(wData.isLoader);
 // console.log(wData.isLoader);
 useEffect(() => {
   navigation.setOptions({title: "Work Sheet List"});
-  dispatch(wrokDataFetch());
+  if(userProfile.user != null){
+    dispatch(wrokDataFetch(userProfile.user.id));
+  }
  // console.warn(gList);
 },[])
 

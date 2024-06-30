@@ -12,7 +12,7 @@ import DatePicker from 'react-native-date-picker';
 import { GetDateCustom } from '../../components/common';
 import { LoaderSpeen } from '../../components/loaderSpeen';
 import { guestDataPost } from '../../components/api';
-
+import { useSelector } from 'react-redux';
 
 
 
@@ -26,12 +26,13 @@ const reviewSchema = yup.object({
 
 
 export default function WorkSheet({route, navigation}) {
+  const userProfile = useSelector(state => state.LoginReducer.data);
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [isLoader, setLoader] = useState(false);
   const [isError, setError] = useState(false);
   const { data } = route.params;
-  // console.log(JSON.stringify(data));
+ console.log(JSON.stringify(userProfile.user.id));
   
 
   const [isShow, setIsShow] = useState(false);
@@ -42,18 +43,21 @@ export default function WorkSheet({route, navigation}) {
   }
   let initialvalue = {};
 
+  if(data){
+    initialvalue = data;
+  }else{
+    initialvalue = {UserId: -1, Date: date, Plan:'', Presenter_Name: '', Guest_Name: '',Address: '', Mobile: '',
+      Comment: '', Comment_2nd: '', Comment_3rd: ''  };
+  }
+
   useEffect(() => {
-    navigation.setOptions({title: "Dashboard"});
     if(data){
-      initialvalue = data;
       navigation.setOptions({title: "Edit Work Sheet"});
     }else{
       navigation.setOptions({title: "Create a Work Item"});
-      initialvalue = {Date: date, Plan:'', Presenter_Name: '', Guest_Name: '',Address: '', Mobile: '',
-        Comment: '', Comment_2nd: '', Comment_3rd: ''  };
     }
 
-  },[])
+  },[]);
 
   
   const navTo = (vl) => {
@@ -90,6 +94,9 @@ return (
                     onSubmit={async(val, actions) => {
                        // actions.resetForm();
                         // textHandler(val);
+                        if(userProfile.user != null){
+                          val.UserId = userProfile.user.id;
+                        }
                         console.log(val);
                         let vl = null;
                         setLoader(true);

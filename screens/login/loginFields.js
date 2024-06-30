@@ -24,7 +24,7 @@ export default function LoginFields({ switchscreen, navigation }) {
    useEffect(() => {
     // we need to user useEffect before setOptions for navigation
     navigation.setOptions({title: "Login"});
-    console.log(JSON.stringify(userProfile.data));
+   // console.log(JSON.stringify(userProfile.data));
     if(userProfile.data != null){
         if(userProfile.data.user != null){
             setLoader(false);

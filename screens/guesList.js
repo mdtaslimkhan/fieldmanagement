@@ -12,12 +12,17 @@ import { useNavigation } from '@react-navigation/native';
 
 
 export default function GuestList({ navigation }) {
+  const userProfile = useSelector(state => state.LoginReducer.data);
+
 const gList = useSelector(state => state.GuestListReducer);
 const dispatch = useDispatch();
 // console.log("====================================");
 // console.log(JSON.stringify(gList.data));
 useEffect(() => {
-    dispatch(guestDataFetch());
+  if(userProfile.user != null){
+    dispatch(guestDataFetch(userProfile.user.id));
+  }
+   
 },[])
 
 

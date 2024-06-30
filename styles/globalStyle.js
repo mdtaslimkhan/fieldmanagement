@@ -167,8 +167,8 @@ export const globalStyle = StyleSheet.create({
   },
   loaderStyle: {
     borderRadius: 50,
-    height: 80,
-    width: 80,
+    height: 40,
+    width: 40,
     backgroundColor: 'rgba(0,0,0,0.3)',
     padding: 20
   },

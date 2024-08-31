@@ -10,7 +10,6 @@ import Notice from './screens/noticeList';
 import SeminarList from './screens/seminarList';
 import WorkSheetList from './screens/worksheetList';
 import TargetAndAchiveList from './screens/targetAndAchiveList';
-import HelpAndSupport from './screens/helpSupport';
 import { NavigationContainer, useNavigation, DrawerActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider } from 'react-redux';
@@ -27,6 +26,9 @@ import * as Updates from 'expo-updates';
 import persistStore from 'redux-persist/es/persistStore';
 import { PersistGate } from 'redux-persist/integration/react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import EditRequest from './screens/edit_request';
+import FileSubmit from './screens/filesubmit';
+import AppUpdate from './screens/update';
 
 // redux persistore configure
 let persistor = persistStore(store);
@@ -110,11 +112,14 @@ const StackNav = () => {
     <Stack.Screen name="SeminarList" component={SeminarList} />
     <Stack.Screen name="WorkSheetList" component={WorkSheetList} />
     <Stack.Screen name="Profile" component={Profile} />
+    <Stack.Screen name="FileSubmit" component={FileSubmit} />
     <Stack.Screen name="Privacy" component={Privacy} />
+    <Stack.Screen name="EditRequest" component={EditRequest} />
     <Stack.Screen name="Review" component={Review} />
-    <Stack.Screen name="HelpAndSupport" component={HelpAndSupport} />
+    <Stack.Screen name="HelpAndSupport" component={FileSubmit} />
     <Stack.Screen name="Notice" component={Notice} />
     <Stack.Screen name="Login" component={Login} />
+    <Stack.Screen name="Update" component={AppUpdate} />
   </Stack.Navigator>
   );
 }

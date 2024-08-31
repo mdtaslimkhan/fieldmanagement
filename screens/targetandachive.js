@@ -15,16 +15,16 @@ import { guestDataPost } from '../components/api';
 import { useSelector } from 'react-redux';
 
 const reviewSchema = yup.object({
-  Presenter: yup.string().required().min(4).max(30),
-  Seminar: yup.string().max(200),
-  Seminar1: yup.string().max(200),
-  Seminar2: yup.string().max(200),
-  Seminar3: yup.string().max(200),
-  Seminar4: yup.string().max(200),
-  Seminar5: yup.string().max(200),
-  Personalinvite: yup.string().required().min(4).max(300),
-  MemberToMember: yup.string().required().min(4).max(300),
-  InviteWithName: yup.string().required().min(4).max(300),
+  Totalmember_Target: yup.string().required().min(1).max(30),
+  Totalmember_Achive: yup.string().max(200),
+  Seminar_Target: yup.string().max(200),
+  Seminar_Achive: yup.string().max(200),
+  Personalinvite_Target: yup.string().max(200),
+  Personalinvite_Achive: yup.string().max(200),
+  MemberToMember_Target: yup.string().max(200),
+  MemberToMember_Achive: yup.string().min(1).max(300),
+  Presenter_Target: yup.string().required().min(1).max(300),
+  Presenter_Achive: yup.string().min(1).max(300),
 });
 
 
@@ -42,10 +42,11 @@ export default function TargetAndAchive({route, navigation}) {
   if(data){
     initialvalue = data;
   }else{
-    initialvalue = {UserId: -1, Totalmember:'', Presenter: '',Seminar: '', Seminar1: '',
-      Seminar2: '', Seminar3: '', Seminar4: '', Seminar5: '',
-      Personalinvite: '',MemberToMember: '', InviteWithName: '' , Date: date};
+    initialvalue = {UserId: -1, Totalmember_Target:'', Totalmember_Achive: '',Seminar_Target: '', Seminar_Achive: '',
+      Personalinvite_Target: '', Personalinvite_Achive: '', MemberToMember_Target: '', MemberToMember_Achive: '',
+      Presenter_Target: '',Presenter_Achive: '' , Date: date};
   }
+
 
   useEffect(() => {
     if(data){
@@ -131,87 +132,82 @@ return (
                                 <GetDateCustom setOpen={setOpen} date={date ? date.getMonth() : 'Month'} type={'Month'} />
                                 <GetDateCustom setOpen={setOpen} date={date ? date.getFullYear() : 'Year'} type={'Year'} />
                             </View>
+ 
 
                          
-                            <Text style={loginRegisterStyle.text}>Total Member </Text>
+                            <Text style={loginRegisterStyle.text}>Totalmember_Target </Text>
                             <TextInput 
-                                placeholder='Total Member Number' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('Totalmember')}
+                                placeholder='Totalmember Target' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('Totalmember_Target')}
                                 keyboardType='number-pad'
-                                value={props.values.Totalmember}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Totalmember && props.errors.Totalmember}</Text>
+                                value={props.values.Totalmember_Target}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Totalmember_Target && props.errors.Totalmember_Target}</Text>
                            
-                            <Text style={loginRegisterStyle.text}>Project Presenter </Text>
+                            <Text style={loginRegisterStyle.text}>Totalmember_Achive </Text>
                             <TextInput 
-                                placeholder='Project Presenter ' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('Presenter')}
-                                value={props.values.Presenter}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Presenter && props.errors.Presenter}</Text>
+                                placeholder='Totalmember Achive' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('Totalmember_Achive')}
+                                value={props.values.Totalmember_Achive}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Totalmember_Achive && props.errors.Totalmember_Achive}</Text>
                             
-                            <Text style={loginRegisterStyle.text}>Seminar </Text>
+                            <Text style={loginRegisterStyle.text}>Seminar_Target </Text>
                             <TextInput 
-                                placeholder='Seminar' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('Seminar')}
-                                value={props.values.Seminar}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar && props.errors.Seminar}</Text>
+                                placeholder='Seminar_Target' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('Seminar_Target')}
+                                value={props.values.Seminar_Target}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar_Target && props.errors.Seminar_Target}</Text>
 
-                            <Text style={loginRegisterStyle.text}>Seminar 1st </Text>
+                            <Text style={loginRegisterStyle.text}>Seminar_Achive </Text>
                             <TextInput 
-                                placeholder='Seminar 1st ' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('Seminar1')}
-                                value={props.values.Seminar1}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar1 && props.errors.Seminar1}</Text>
+                                placeholder='Seminar_Achive' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('Seminar_Achive')}
+                                value={props.values.Seminar_Achive}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar_Achive && props.errors.Seminar_Achive}</Text>
 
-                            <Text style={loginRegisterStyle.text}>Seminar 2nd </Text>
+                            <Text style={loginRegisterStyle.text}>Personalinvite_Target</Text>
                             <TextInput 
-                                placeholder='Seminar 2nd ' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('Seminar2')}
-                                value={props.values.Seminar2}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar2 && props.errors.Seminar2}</Text>
+                                placeholder='Personalinvite_Target' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('Personalinvite_Target')}
+                                value={props.values.Personalinvite_Target}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Personalinvite_Target && props.errors.Personalinvite_Target}</Text>
 
-                            <Text style={loginRegisterStyle.text}>Seminar 3rd </Text>
+                            <Text style={loginRegisterStyle.text}>Personalinvite_Achive </Text>
                             <TextInput 
-                                placeholder='Seminar 3rd' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('Seminar3')}
-                                value={props.values.Seminar3}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar3 && props.errors.Seminar3}</Text>
+                                placeholder='Personalinvite_Achive' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('Personalinvite_Achive')}
+                                value={props.values.Personalinvite_Achive}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Personalinvite_Achive && props.errors.Personalinvite_Achive}</Text>
 
-                            <Text style={loginRegisterStyle.text}>Seminar 4th </Text>
+                            <Text style={loginRegisterStyle.text}>MemberToMember_Target </Text>
                             <TextInput 
-                                placeholder='Seminar 4th' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('Seminar4')}
-                                value={props.values.Seminar4}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar4 && props.errors.Seminar4}</Text>
+                                placeholder='MemberToMember_Target' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('MemberToMember_Target')}
+                                value={props.values.MemberToMember_Target}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.MemberToMember_Target && props.errors.MemberToMember_Target}</Text>
 
 
-                            <Text style={loginRegisterStyle.text}>Seminar 5th </Text>
+                            <Text style={loginRegisterStyle.text}>MemberToMember_Achive </Text>
                             <TextInput 
-                                placeholder='Seminar 5th' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('Seminar5')}
-                                value={props.values.Seminar5}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Seminar5 && props.errors.Seminar5}</Text>
+                                placeholder='MemberToMember_Achive' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('MemberToMember_Achive')}
+                                value={props.values.MemberToMember_Achive}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.MemberToMember_Achive && props.errors.MemberToMember_Achive}</Text>
 
-                            <Text style={loginRegisterStyle.text}>Your Personal Invite </Text>
+                            <Text style={loginRegisterStyle.text}>Presenter_Target </Text>
                             <TextInput 
-                                placeholder='Your Personal Invite' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('Personalinvite')}
-                                value={props.values.Personalinvite}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Personalinvite && props.errors.Personalinvite}</Text>
+                                placeholder='Presenter_Target' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('Presenter_Target')}
+                                value={props.values.Presenter_Target}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Presenter_Target && props.errors.Presenter_Target}</Text>
 
-                            <Text style={loginRegisterStyle.text}>Your Member To Member </Text>
+                            <Text style={loginRegisterStyle.text}>Presenter_Achive</Text>
                             <TextInput 
-                                placeholder='Your Member To Member' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('MemberToMember')}
-                                value={props.values.MemberToMember}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.MemberToMember && props.errors.MemberToMember}</Text>
+                                placeholder='Presenter_Achive' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('Presenter_Achive')}
+                                value={props.values.Presenter_Achive}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Presenter_Achive && props.errors.Presenter_Achive}</Text>
                             
-                            <Text style={loginRegisterStyle.text}>Personal Invite With Name </Text>
-                            <TextInput 
-                                placeholder='Personal Invite With Name' style={loginRegisterStyle.input}
-                                onChangeText={props.handleChange('InviteWithName')}
-                                value={props.values.InviteWithName}/>
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.InviteWithName && props.errors.InviteWithName}</Text>
-
+              
                             <TouchableOpacity 
                                 onPress={props.handleSubmit}
                                 style={loginRegisterStyle.buttonSubmit}>

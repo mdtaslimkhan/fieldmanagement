@@ -25,7 +25,7 @@ export default function Notice() {
     <TouchableOpacity onPress={() => handlePress(item)}> 
       <View style={globalStyle.noticeItemHolder}>
         <View style={globalStyle.noticeHeader}>
-          <Image style={globalStyle.noticeItemPhoto} source={images.icons[2]} />
+          <Image style={globalStyle.noticeItemPhoto} source={{uri: item.image}} />
           <View style={globalStyle.noticetitleHolder}>
             <Text style={{ fontSize: 16, fontWeight: 'bold'}}>{item.Title}</Text>
             <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#777'}} >{item.Date}</Text>

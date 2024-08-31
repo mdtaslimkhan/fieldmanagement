@@ -113,6 +113,7 @@ const Modalviewobject = () => {
             <NavigatePageItem page={'Guest List'} handleNavigate={'GuestListCreate'} />
             <NavigatePageItem page={'Seminar'} handleNavigate={'SeminarForm'} />
             <NavigatePageItem page={'Target & Achive'} handleNavigate={'TargetAndAchive'} />
+            <NavigatePageItem page={'Help and support'} handleNavigate={'FileSubmit'} />
         </View>
         </View>
       </Modal>

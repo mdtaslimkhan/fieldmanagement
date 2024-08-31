@@ -2,7 +2,7 @@ import {ToastAndroid } from 'react-native';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_URL } from "../../components/constants";
 import axios from "axios";
-import { uniDataPost } from '../../components/api';
+import { uniDataPost, uploadMultipart } from '../../components/api';
 
 const initialstate = {
     data: null,
@@ -14,7 +14,11 @@ const initialstate = {
 export const getUser = createAsyncThunk("logUser", async(val, action) =>{
     const udata = await uniDataPost("loguser", val);
         if(!udata.data.loggedIn){
-            ToastAndroid.show('Username or Password wrong', ToastAndroid.SHORT);
+            if(udata.data.msg != null){
+                ToastAndroid.show(''+udata.data.msg, ToastAndroid.SHORT);
+            }else{
+                ToastAndroid.show('Server error', ToastAndroid.SHORT);
+            }
         }
         return udata.data;
 });
@@ -25,6 +29,14 @@ export const registerUser = createAsyncThunk("registerUser", async(val, action) 
             ToastAndroid.show('User logged in along register.', ToastAndroid.SHORT);
         }
         return udata.data;
+});
+
+export const updateUser = createAsyncThunk("postupdateUser", async(val, action) =>{
+    const udata = await uploadMultipart("updateUser", val);
+    if(udata.data.loggedIn){
+        ToastAndroid.show('Your profile info updated.', ToastAndroid.SHORT);
+    }
+    return udata.data;
 });
 
 
@@ -61,6 +73,19 @@ const LoginSlice = createSlice({
         builder.addCase(getUser.rejected, (state, action) => {
             state.isError = true;
         });
+        // updated user
+        builder.addCase(updateUser.pending, (state, action) => {
+            state.isLoader = true;
+        });
+        builder.addCase(updateUser.fulfilled, (state, action) => {
+            state.isLoader = false;
+            state.data = action.payload;
+        });
+        builder.addCase(updateUser.rejected, (state, action) => {
+            state.isError = true;
+        });
+
+
         
     }
 });

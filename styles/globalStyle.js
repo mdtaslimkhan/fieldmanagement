@@ -138,7 +138,9 @@ export const globalStyle = StyleSheet.create({
       bottom: 5
     },
     noticeItemHolder: {
-      margin: 8,
+      marginTop: 8,
+      marginRight: 8,
+      marginLeft: 8,
       padding: 8,
       borderRadius: 5,
       borderColor: "#ccc",
@@ -166,11 +168,11 @@ export const globalStyle = StyleSheet.create({
       fontSize: 30,
   },
   loaderStyle: {
-    borderRadius: 50,
-    height: 40,
-    width: 40,
+    borderRadius: 0,
+    height: 30,
+    width: 30,
     backgroundColor: 'rgba(0,0,0,0.3)',
-    padding: 20
+    padding: 0
   },
   loaderOnly: {
     borderRadius: 40,
@@ -185,7 +187,7 @@ export const globalStyle = StyleSheet.create({
   },
   loaderSubHolder: {
     backgroundColor: '#ebebeb',
-    padding: 20,
+    padding: 10,
     borderRadius: 10
   },
   loader: {

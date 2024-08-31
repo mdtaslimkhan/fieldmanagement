@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Text, View, Button, TextInput, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, View, Button, TextInput, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard, ToastAndroid } from 'react-native';
 import { loginRegisterStyle } from './loginStyle';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -8,6 +8,7 @@ import { LoaderSpeen, LoaderOnly } from '../../components/loaderSpeen';
 import { workSheetStyle } from '.././worksheet/workSheetStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../redux/slices/loginSlice';
+
 
 
 
@@ -36,7 +37,8 @@ export default function RegisterFields({ switchscreen, navigation }) {
         if(userProfile.data != null){
             if(userProfile.data.user != null){
                 setLoader(false);
-                navTo("Dashboard");
+               // navTo("Dashboard");
+               ToastAndroid.show('Successfuly registered but need admin approval.', ToastAndroid.SHORT);
             }else{
                 setLoader(false);
             }
@@ -63,7 +65,7 @@ return (
                 onSubmit={async(val, actions) => {
                   //  actions.resetForm();
                     // textHandler(val);
-                    console.log(val);
+                    console.log("register data: " +val);
                   //  let vl = null;
                   //  setLoader(true);
                     dispatch(registerUser(val));

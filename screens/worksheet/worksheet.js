@@ -18,7 +18,7 @@ import { useSelector } from 'react-redux';
 
 const reviewSchema = yup.object({
   Plan: yup.string().required(),
-  Presenter_Name: yup.string().required(),
+  Presenter_Name: yup.string().required().min(4).max(30),
   Guest_Name: yup.string().required().min(4).max(30),
   address: yup.string().required().min(4).max(300),
   Mobile: yup.string().required().min(4).max(300),
@@ -46,7 +46,7 @@ export default function WorkSheet({route, navigation}) {
   if(data){
     initialvalue = data;
   }else{
-    initialvalue = {UserId: -1, Date: date, Plan:'', Presenter_Name: '', Guest_Name: '',Address: '', Mobile: '',
+    initialvalue = {UserId: -1, Date: date, Plan:'', Guest_Name: '',Address: '', Mobile: '',
       Comment: '', Comment_2nd: '', Comment_3rd: ''  };
   }
 
@@ -96,6 +96,7 @@ return (
                         // textHandler(val);
                         if(userProfile.user != null){
                           val.UserId = userProfile.user.id;
+                          val.Date = date;
                         }
                         console.log(val);
                         let vl = null;
@@ -149,13 +150,13 @@ return (
                             onChangeText={props.handleChange('Plan')}
                             selecteds={(val) => props.values.Plan = val} />
                             <Text style={loginRegisterStyle.errorText}>{props.touched.Plan && props.errors.Plan}</Text>
-
-                            <Text style={loginRegisterStyle.text}>Presenter Name </Text>
-                            <CustomSelect label={"Presenter"} 
-                            planList={presenterList} 
-                            selecteds={(val) => props.values.Presenter_Name = val} />
+                            
+                            <Text style={loginRegisterStyle.text}>Presenter </Text>
+                            <TextInput 
+                                placeholder='Presenter' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('Presenter_Name')}
+                                value={props.values.Presenter_Name}/>
                             <Text style={loginRegisterStyle.errorText}>{props.touched.Presenter_Name && props.errors.Presenter_Name}</Text>
-
 
                             <Text style={loginRegisterStyle.text}>Guest Name </Text>
                             <TextInput 

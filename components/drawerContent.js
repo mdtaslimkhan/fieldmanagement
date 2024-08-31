@@ -27,7 +27,8 @@ const nav = [
     {icon: 'Safety', label: 'Notice', navigateTo: 'Notice'},
     {icon: 'Safety', label: 'Profile', navigateTo: 'Profile'},
     {icon: 'Safety', label: 'Privacy', navigateTo: 'Privacy'},
-    {icon: 'Safety', label: 'Help', navigateTo: 'HelpAndSupport'},
+    {icon: 'Safety', label: 'Help and support', navigateTo: 'FileSubmit'},
+    {icon: 'Safety', label: 'Update', navigateTo: 'Update'},
 ];
 
 
@@ -56,14 +57,18 @@ const DrawerItems = props => {
 
 export default function DrawerContentCustom({ props }){
     const [user, setUser] = useState(User);
+    const [userPhoto, setPhoto] = useState('../assets/favicon.png');
     const data = useSelector(state => state.LoginReducer.data);
     const dispatch = useDispatch();
     const navigation = useNavigation();
     useEffect(() => {
         if(data != null && data.user != null){
             setUser(data.user);
+            setPhoto(data.user.Photo);
         }
     },[data])
+
+    console.log('afdad :' +userPhoto);
 
 
     const handleLogout = () => {
@@ -78,11 +83,11 @@ export default function DrawerContentCustom({ props }){
             <DrawerContentScrollView {...props}>
                 <TouchableOpacity>
                     <View style={navStyle.infoHolder} >
-                        <Avatar.Image
+                       <Avatar.Image
                         style={navStyle.userImage}
-                        source={{uri:''}}
+                        source={ userPhoto ? { uri: userPhoto } : require('../assets/images/person.jpg')}
                         size={50}
-                        />
+                        /> 
                         <View style={navStyle.infoTextHolder}>
                             <Text style={navStyle.text} >{user.Name}</Text>
                             <Text style={navStyle.subText} >{user.Email}</Text>

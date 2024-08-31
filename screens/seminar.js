@@ -18,7 +18,7 @@ const reviewSchema = yup.object({
   HostName: yup.string().required().min(4).max(30),
   Upazila: yup.string().required().min(1).max(50),
   Village: yup.string().required().min(1).max(50),
-  Presenter: yup.string().required(),
+  Status: yup.string().required(),
 });
 
 
@@ -59,10 +59,9 @@ export default function SeminarForm({route, navigation }) {
   }
 
 
-  const presenterList = [
-    {title: 'Jashim'},
-    {title: 'Md Abu toha'},
-    {title: 'Md Aminul'},
+  const status = [
+    {title: 'Done'},
+    {title: 'Cancle'},
   ];
 
   const [modalShow, setModal] = useState(false);
@@ -136,6 +135,20 @@ return (
                                 value={props.values.HostName}/>
                             <Text style={loginRegisterStyle.errorText}>{props.touched.HostName && props.errors.HostName}</Text>
                             
+                            <Text style={loginRegisterStyle.text}>Activity </Text>
+                            <TextInput 
+                                placeholder='Activity ' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('Activity')}
+                                value={props.values.Activity}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Activity && props.errors.Activity}</Text>
+
+                            <Text style={loginRegisterStyle.text}>Note </Text>
+                            <TextInput 
+                                placeholder='Note ' style={loginRegisterStyle.input}
+                                onChangeText={props.handleChange('Note')}
+                                value={props.values.Note}/>
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Note && props.errors.Note}</Text>   
+
                             <Text style={loginRegisterStyle.text}>Upazila </Text>
                             <TextInput 
                                 placeholder='Enter Your Address' style={loginRegisterStyle.input}
@@ -150,36 +163,11 @@ return (
                                 value={props.values.Village}/>
                             <Text style={loginRegisterStyle.errorText}>{props.touched.Village && props.errors.Village}</Text>
 
-                            <View>
-                              <>
-                                <DatePicker
-                                  modal
-                                  mode='time'
-                                  open={openTime}
-                                  date={time}
-                                  showTime={{ use12Hours: true, format: "HH:mm a" }}
-                                  onConfirm={(date) => {
-                                    setTimeOpen(false)
-                                    setTime(date)
-                                    console.log("date string :" + date.getMinutes());
-                                    props.values.Time = date;
-                                  }}
-                                  onCancel={() => {
-                                    setTimeOpen(false)
-                                  }}
-                                />
-                              </>
-                            </View>
-                            <View style={workSheetStyle.monthDateHolder}>
-                                <GetDateCustom setOpen={setTimeOpen} date={time ? time.getHours() : 'Time'} type={'Time'} />
-                                <GetDateCustom setOpen={setTimeOpen} date={time ? time.getMinutes() : 'Offset'} type={'Minutes'} />
-                            </View>
-
-                            <Text style={loginRegisterStyle.text}>Presenter Name </Text>
-                            <CustomSelect label={"Presenter"} 
-                            planList={presenterList} 
-                            selecteds={(val) => props.values.Presenter = val} />
-                            <Text style={loginRegisterStyle.errorText}>{props.touched.Presenter && props.errors.Presenter}</Text>
+                            <Text style={loginRegisterStyle.text}>Status </Text>
+                            <CustomSelect label={"Status"} 
+                            planList={status} 
+                            selecteds={(val) => props.values.Status = val} />
+                            <Text style={loginRegisterStyle.errorText}>{props.touched.Status && props.errors.Status}</Text>
 
                             <TouchableOpacity 
                                 onPress={props.handleSubmit}

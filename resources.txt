@@ -1,3 +1,9 @@
+load remote images
+source={{uri : 'some link'}}
+local 
+source={images.icons[2]}
+
+
 eas update add remove 
 
 $ npx expo uninstall expo-updates

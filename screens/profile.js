@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import {Image, StyleSheet, Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Header from '../components/header';
 import { globalStyle } from '../styles/globalStyle';
@@ -14,10 +14,10 @@ import axios from 'axios';
 import { GetDateCustom } from './../components/common';
 import DatePicker from 'react-native-date-picker';
 import placeHoder from '../assets/favicon.png';
-import { useSelector } from 'react-redux';
-
-const formdata = global.FormData;
-
+import {useDispatch , useSelector } from 'react-redux';
+import { uploadMultipart } from '../components/api';
+import { LoaderSpeen } from '../components/loaderSpeen';
+import { updateUser } from '../redux/slices/loginSlice';
 
 const reviewSchema = yup.object({
   Name: yup.string().required().min(4).max(30),
@@ -31,9 +31,7 @@ const reviewSchema = yup.object({
 });
 
 
-
-
-export default function Profile() {
+export default function Profile({route, navigation}) {
   let loggedUser = {};
   const data = useSelector(state => state.LoginReducer.data);
   loggedUser = data ? data.user : {};
@@ -41,6 +39,10 @@ export default function Profile() {
   const [date, setDate] = useState(new Date())
   const [open, setOpen] = useState(false)
   const [image, setImage] = useState(null);
+  const [image64, setImage64] = useState(null);
+  const [isLoader, setLoader] = useState(false);
+  const [srvPhoto, setSrvPhoto] = useState('');
+  const dispatch = useDispatch();
 
   let initialdata = {};
   if(loggedUser){
@@ -51,6 +53,14 @@ export default function Profile() {
       Gender: '', Blood_group: ''};
   }
 
+
+  useEffect(() => {
+    if(data){
+      navigation.setOptions({title: "User Profile"});
+      setSrvPhoto(JSON.stringify(data.user.Photo));
+    }
+  },[]);
+
   
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -59,43 +69,19 @@ export default function Profile() {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [1, 1],
-      quality: 1,
+      quality: 0.5,
+      base64: true
     });
 
-    console.log(result);
+  //  console.log(result);
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      sendTobackend();
+      setImage64(result.assets[0].base64);
     }
   };
 
 
-  const sendTobackend = async () => {
-    try{
-      const formdata = new FormData();
-      formdata.append('',{
-        uri: image,
-        type: 'image/png',
-        name: 'profile-image'
-      });
-
-      const config = {
-        headers: {
-          "Content-type": 'multipart/form-data'
-        },
-        transfromRequest: () => {
-          return formdata;
-        }
-      }
-
-      await axios.post('',formdata, config);
-      alert('success');
-
-    }catch(e){
-      console.log('profile.js: '+ e);
-    }
-  }
 
   const [isShow, setIsShow] = useState(false);
 
@@ -125,29 +111,44 @@ export default function Profile() {
 
 
 return (
+  <View style={workSheetStyle.container}>
+  { !isLoader ? 
     <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
 
     <View style={workSheetStyle.container}>
         <View style={workSheetStyle.content}>
-
-                <Formik 
-                    initialValues={loggedUser}
-                    validationSchema={reviewSchema}
-                    onSubmit={(val, actions) => {
-                        actions.resetForm();
-                        // textHandler(val);
-                        console.log(val);
-                }}>
-                    {(props) =>(
-                        <View>
-
                           <View style={globalStyle.profileImageIcoHolder}>
                             <View style={globalStyle.profileImageHolder}>
-                            {image && <Image source={{ uri: image }} style={globalStyle.profileImage} />}
+                              { image ?
+                              <Image source={{ uri: image }} style={globalStyle.profileImage} /> :
+                              <Image source={ srvPhoto ? { uri: srvPhoto } : require('../assets/images/person.jpg')} style={globalStyle.profileImage} />
+                              }
                             <AntDesign style={globalStyle.imagePickerIcon} name="camera" 
                             onPress={pickImage} size={34} color="green" />
                             </View>
                           </View>
+
+                <Formik 
+                    initialValues={loggedUser}
+                    validationSchema={reviewSchema}
+                    onSubmit={ async (val, actions) => {
+                       // actions.resetForm();
+                        if(loggedUser.user != null){
+                          val.UserId = loggedUser.user.id;
+                        }
+                          val.photo = image64;
+                      //   console.log("data submit: "+JSON.stringify(val));
+                          let vl = null;
+                          setLoader(true);
+                          dispatch(updateUser(val));
+                          setLoader(false);
+                          navTo("Dashboard");
+
+                }}>
+                    {(props) =>(
+                        <View>
+
+                          
 
                             <Text style={loginRegisterStyle.text}>Your Name </Text>
                             <TextInput 
@@ -248,7 +249,9 @@ return (
                 </Formik>        
         </View>
   </View>
-  </ScrollView>
+  </ScrollView> : <LoaderSpeen />
+  }      
+  </View>
 );
 
 

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, View, Button, TextInput, FlatList, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard, ToastAndroid } from 'react-native';
 import TodoItem from '../components/todoitem';
 import AddTodoInput from '../components/addtodo';
 import { globalStyle } from '../styles/globalStyle';
@@ -33,16 +33,15 @@ const tabelHeader = {
 }
 
 const element = (data, rowData) => (
-  <TouchableOpacity onPress={() => (rowData.is_approved == 0 || rowData.is_approved == null) ? navigation.navigate("EditRequest", { is_worksheet: 0, data: rowData}) 
-  : navTo("TargetAndAchive", rowData)}>
+  <TouchableOpacity onPress={() => 
+    (rowData.is_approved == 0 || rowData.is_approved == null) ? 
+    navigation.navigate("TargetAndAchive", { is_worksheet: 0, data: rowData}) 
+    : ToastAndroid.show('Already requested for edit approval', ToastAndroid.SHORT) }>
     <View style={tableStyle.btn}>
-      {console.log("requst data: " +rowData.is_request)}
+      {console.log("requst data: " +rowData.is_approved)}
     { (rowData.is_approved == 0 || rowData.is_approved == null) ?
-       <AntDesign style={tableStyle.icon} name="mail"  size={25} color="green" />
-       : (rowData.is_approved == 1 ) ?
        <AntDesign style={tableStyle.icon} name="edit"  size={25} color="green" />
-       :
-       <AntDesign style={tableStyle.icon} name="info"  size={25} color="green" />
+       : <AntDesign style={tableStyle.icon} name="infocirlce"  size={25} color="red" />
     }
     </View>
   </TouchableOpacity>

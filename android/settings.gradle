@@ -1,4 +1,4 @@
-rootProject.name = 'myproject'
+rootProject.name = 'Expro'
 
 dependencyResolutionManagement {
   versionCatalogs {

@@ -76,6 +76,7 @@
 ---
 
 ![Images!](assets/icon.png)
+![Green!](assets/loader.gif)
 
 ## 🤝 Contributing
 

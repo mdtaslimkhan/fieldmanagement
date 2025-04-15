@@ -75,6 +75,8 @@
 
 ---
 
+![Images!](assets/icon.png)
+
 ## 🤝 Contributing
 
 We welcome contributions to enhance FieldWork. To contribute:

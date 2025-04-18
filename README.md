@@ -4,6 +4,9 @@
 
 ---
 
+![Images!](assets/screen/fm.png)
+
+
 ## 📱 Features
 
 - **Task Assignment**: Assign specific tasks to team members with due dates and priorities.
@@ -75,8 +78,6 @@
 
 ---
 
-![Images!](assets/icon.png)
-![Green!](assets/adaptive-icon.png)
 
 ## 🤝 Contributing
 
